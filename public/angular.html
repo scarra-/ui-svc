@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="userApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>User Registration</title>
+    <link href="css/app.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div ng-include src="partials/signin.html">
+        
+          </div>
+           <div ng-include src="partials/registration.html">
+        
+          </div>
+            
+            <button id="sendTest" class="btn info">Send Test</button>
+        </div>
+        <div class="row-fluid">
+            <div class="col-md-9">
+                <ul id="activity_stream_example" class="activity-stream no-actions"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+  </body>
+</html>

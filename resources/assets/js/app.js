@@ -17,8 +17,10 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
 
         self.registerUser = function() {
             var user = new UserService(self.user);
-            user.$save(function(response) {
-                console.log('User registered:', response);
+            user.$save(function(success) {
+                self.user = {};
+            }, function(failure) {
+                console.log(failure);
             });
         };
     }])

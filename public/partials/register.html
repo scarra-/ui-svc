@@ -1,0 +1,36 @@
+<form class="form-register" method="POST"
+      ng-controller="RegisterController as regCtrl"
+      >
+    <h2 class="form-register-heading">Please register</h2>
+
+    <label for="inputLogin"
+           class="sr-only">User login</label>
+    <input type="text"
+           ng-model="regCtrl.user.login"
+           name="aaaa"
+           id="inputLogin"
+           class="form-control"
+           placeholder="Username"
+           required
+           autofocus>
+
+    <label for="inputEmail"
+           class="sr-only">Email address</label>
+    <input type="email"
+           ng-model="regCtrl.user.email"
+           id="inputEmail"
+           class="form-control"
+           placeholder="Email address" required>
+
+    <label for="inputPassword"
+           class="sr-only">Password</label>
+    <input type="password"
+           ng-model="regCtrl.user.password"
+           id="inputPassword"
+           class="form-control"
+           placeholder="Password"
+           required>
+
+    <button class="btn btn-lg btn-primary btn-block"
+            type="submit">Register</button>
+</form>

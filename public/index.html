@@ -4,30 +4,7 @@
     <title>Home page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link href="css/homepage.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//js.pusher.com/2.2/pusher.min.js"></script>
-
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="http://js.pusher.com/2.2/pusher.min.js"></script>
-
-    <script src="js/PusherActivityStreamer.js"></script>
-    <script>
-        $(function() {
-            var pusher = new Pusher('7b0cc00ab6716c7191b4')
-            var channel = pusher.subscribe('site-activity');
-            var streamer = new PusherActivityStreamer(channel, '#activity_stream_example');
-            $("#sendTest").click(function () {
-                streamer.sendActivity('test-event');
-            });
-        });
-    </script>
-    <link href="activity-streams.css" rel="stylesheet"/>
+    <link href="css/app.css" rel="stylesheet">
 </head>
 
 <body>
@@ -68,5 +45,6 @@
             </div>
         </div>
     </div>
+    <script  src="js/app.js"></script>
 </body>
 </html>
