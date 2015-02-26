@@ -11,22 +11,9 @@ function PusherActivityStreamer(activityChannel, ulSelector, options) {
   this._activityChannel = activityChannel;
   this._activityList = $(ulSelector);
   
-  this._activityChannel.bind('activity', function(activity) {
-      self._handleActivity.call(self, activity, activity.type);
-    });
-  this._activityChannel.bind('page-load', function(activity) {
-      self._handleActivity.call(self, activity, 'page-load');
-    });
   this._activityChannel.bind('test-event', function(activity) {
       self._handleActivity.call(self, activity, 'test-event');
     });
-  this._activityChannel.bind('scroll', function(activity) {
-      self._handleActivity.call(self, activity, 'scroll');
-    });
-  this._activityChannel.bind('like', function(activity) {
-      self._handleActivity.call(self, activity, 'like');
-    });
-    
   this._itemCount = 0;
 };
 
@@ -91,10 +78,6 @@ PusherActivityStreamer.prototype.sendActivity = function(activityType, activityD
   })
 };
 
-PusherActivityStreamer.prototype.setEmail = function(value) {
-  this._email = value;
-};
-
 PusherActivityStreamer._buildListItem = function(activity) {
   var li = $('<li class="activity"></li>');
   li.attr('data-activity-id', activity.id);
@@ -112,8 +95,7 @@ PusherActivityStreamer._buildListItem = function(activity) {
   
   var user = $('<div class="activity-row">' +
                 '<span class="user-name">' +
-                  '<a class="screen-name" title="' + activity.actor.displayName + '">' + activity.actor.displayName + '</a>' +
-                  //'<span class="full-name">' + activity.actor.displayName + '</span>' +
+                   + activity.actor.displayName +
                 '</span>' +
               '</div>');
   content.append(user);
