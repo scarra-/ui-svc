@@ -2,20 +2,11 @@ console.info('works');
 
 API_KEY = '7b0cc00ab6716c7191b4';
 
-/*var pusher = new Pusher('7b0cc00ab6716c7191b4');
+var pusher = new Pusher('7b0cc00ab6716c7191b4');
 var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data) {
     console.log(data.message);
-});*/
-
-var pusher = new Pusher(API_KEY);
-//var pusher = $pusher(client);
-var my_channel = pusher.subscribe('my-channel');
-my_channel.bind('new-price', function(data) {
-// update with new price
-        console.log(data.message);
-    }
-);
+});
 
 /*
 
