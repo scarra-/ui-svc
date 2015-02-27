@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="userApp">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,24 +9,30 @@
 
     <title>User Registration</title>
     <link href="css/app.css" rel="stylesheet">
-  </head>
- <body>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.0/angular.min.js"></script>
+    <!-- pusher-js -->
+    <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+    <!-- pusher-angular -->
+    <script src="//cdn.jsdelivr.net/angular.pusher/latest/pusher-angular.min.js"></script>
+</head>
+<body>
 
 <div class="container">
-  <div class="col-md-3">
+    <div class="col-md-3">
 
-    <div ng-controller="Controller" ng-include src="'partials/signin.html'"> </div>
-    <div ng-controller="Controller" ng-include src="'partials/registration.html'"> </div>
-    <button id="sendTest" class="btn info">Send Test</button>
+        <div ng-controller="Controller" ng-include src="'partials/signin.html'"></div>
+        <div ng-controller="Controller" ng-include src="'partials/registration.html'"></div>
+        <button id="sendTest" class="btn info">Send Test</button>
 
-  </div>
-
-  <div class="col-md-9">  
-
-    <div class="row-fluid"  ng-controller="Controller" ng-include src="'partials/stream.html'">
     </div>
 
-  </div>
+    <div class="col-md-9">
+
+        <div class="row-fluid" ng-controller="Controller" ng-include src="'partials/stream.html'">
+        </div>
+
+    </div>
 </div>
 
 

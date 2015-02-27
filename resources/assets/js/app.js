@@ -1,9 +1,18 @@
-require('angular/angular.min');
+//require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
-var Pusher = require('pusher/lib/pusher');
-require('pusher-angular/lib/pusher-angular.min');
-require('./pusher');
+//require('./pusher.min');
+//require('./pusher-angular.min');
+require('pusher-angular');
+require('./my-pusher');
+
+
+
+
+if(typeof angular == 'undefined') {
+    alert('no angular');
+}
+
 
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
     .factory('UserService', ['$resource', function($resource) {
