@@ -1,7 +1,8 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
-require('angular-pusher/angular.pusher.min');
+var Pusher = require('pusher/lib/pusher');
+require('pusher-angular/lib/pusher-angular.min');
 require('./pusher');
 
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
