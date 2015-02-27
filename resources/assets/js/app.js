@@ -42,5 +42,5 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
     var validator = angular.module('userApp', [])
      .controller('Controller', ['$scope', function($scope) {
        $scope.user = {};
-
+//d
      }]);
