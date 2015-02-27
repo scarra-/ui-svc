@@ -1,6 +1,8 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
+require('angular-pusher/angular.pusher.min');
+require('./pusher');
 
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
     .factory('UserService', ['$resource', function($resource) {
