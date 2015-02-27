@@ -17,7 +17,7 @@ channel.bind('my_event', function (data) {
     + '</div>'
     + '<div class="activity-row">'
     + '<div class="text">' + data.message + '</div>'
-    + '<div class="activity-row"><a class="timestamp"><span title="Fri, 27 Feb 2015 14:45:36 +0000">'+data.time+'</span></a><span class="activity-actions"><span class="tweet-action action-favorite"><a href="#" class="like-action" data-activity="like" title="Like"><span><i></i><b>Like</b></span></a></span></span></div>'
+    + '<div class="activity-row"><a class="timestamp"><span title="'+data.time+'">'+data.time+'</span></a><span class="activity-actions"><span class="tweet-action action-favorite"><a href="#" class="like-action" data-activity="like" title="Like"><span><i></i><b>Like</b></span></a></span></span></div>'
     + '</div>'
     + '</div>'
     + '</div>'
@@ -25,14 +25,3 @@ channel.bind('my_event', function (data) {
     $('.activity-stream').prepend(apended);
 
 });
-
-/*
-
- var pusher = new Pusher('7b0cc00ab6716c7191b4');
- var channels = pusher.allChannels();
- console.group('Pusher - subscribed to:');
- for (var i = 0; i < channels.length; i++) {
- var channel = channels[i];
- console.log(channel.name);
- }
- console.groupEnd();*/
