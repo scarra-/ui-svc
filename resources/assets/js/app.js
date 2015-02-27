@@ -8,6 +8,8 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
             update: {method: 'PUT'}
         });
     }])
+
+
     .controller('HomeController', [function() {
         var self = this;
         self.title = 'asdasd';
@@ -18,6 +20,7 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
         self.registerUser = function() {
             var user = new UserService(self.user);
             user.$save(function(success) {
+
                 self.user = {};
             }, function(failure) {
                 console.log(failure);
@@ -35,3 +38,4 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
         })
         .otherwise({redirectTo: '/'});
 }]);
+
