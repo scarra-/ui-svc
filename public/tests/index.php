@@ -13,5 +13,6 @@ $app_secret = 'e8171f83e6bcd7d88342';
 
 $pusher = new Pusher($app_key, $app_secret, $app_id);
 
-$data['message'] = 'hello world';
-$pusher->trigger('test_channel', 'my_event', $data);
+$data['message'] = 'hello waweqwerqworld';
+$data['time'] = time();
+print_r($pusher->trigger('test_channel', 'my_event', $data));
