@@ -25,3 +25,13 @@ channel.bind('my_event', function (data) {
     $('.activity-stream').prepend(apended);
 
 });
+
+
+
+$scope.tests = {};
+
+$scope.add = function() {
+    var newTest = {name: 'Test Message'};
+
+    $scope.tests.push(newTest);
+};
