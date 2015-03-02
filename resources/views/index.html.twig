@@ -9,22 +9,27 @@
 
     <title>User Registration</title>
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
-    <script src="lib/jquery.min.js"></script>
-    <!-- AngularJS -->
-    <script src="lib/angular.min.js"></script>
+    <script>
+        window.userServiceUrl = 'http://user-svc.acn-bootcamp.com';
+        window.contentServiceUrl = 'http://content-svc.acn-bootcamp.com';
+    </script>
     <!-- pusher-js -->
-    <script src="lib/pusher.min.js"></script>
+   <!-- <script src="lib/pusher.min.js"></script> -->
     <!-- pusher-angular -->
-    <script src="lib/pusher-angular.min.js"></script>
+   <!-- <script src="lib/pusher-angular.min.js"></script> -->
 </head>
 <body>
 <div class="container">
     <div class="col-md-3">
-        <div ng-controller="Controller" ng-include src="'partials/signin.html'"></div>
-        <div ng-controller="Controller" ng-include src="'partials/registration.html'"></div>
+      
+        <div ng-include="'partials/signin.html'"></div> <br/>
+        <div ng-include="'partials/registration.html'"></div><br/> 
+
     </div>
+
+
     <div class="col-md-9">
-        <div class="row-fluid" ng-controller="Controller" ng-include src="'partials/stream.html'">
+        <div ng-include="'partials/msgBox.html'"></div>
         </div>
     </div>
 </div>
