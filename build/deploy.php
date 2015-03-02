@@ -9,8 +9,7 @@ $client = CodeDeployClient::factory([
         'key'    => getenv('AWS_ACCESS_KEY'),
         'secret' => getenv('AWS_SECRET_KEY'),
     ],
-    'region'  => 'us-east-1',
-    'version' => '2014-10-06',
+    'region'  => getenv('AWS_REGION'),
 ]);
 
 $repoName    = getenv('REPO_NAME');
