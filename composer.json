@@ -2,7 +2,6 @@
   "require": {
     "silex/silex": "~1.2",
     "symfony/twig-bridge": "~2.3",
-    "aws/aws-sdk-php": "~2.7",
-    "vlucas/phpdotenv": "~1.1"
+    "aws/aws-sdk-php": "~2.7"
   }
 }
