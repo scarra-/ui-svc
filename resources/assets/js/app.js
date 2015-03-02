@@ -1,10 +1,10 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
-//require('./pusher.min');
+//require('pusher-angular/public/components/angular/angular');
 
 
-var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
+var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
     .factory('UserService', ['$resource', function($resource) {
         return $resource(window.userServiceUrl+'/users/:id', {id:'@id'}, {
             update: {method: 'PUT'}
