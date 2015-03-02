@@ -18,7 +18,7 @@ $buildnumber = getenv('TRAVIS_BUILD_NUMBER');
 $s3Bucket    = getenv('S3_BUCKET');
 
 $result = $client->registerApplicationRevision([
-    'applicationName' => 'project-example',
+    'applicationName' => $repoName,
     'revision' => [
         'revisionType' => 'S3',
         's3Location' => [
