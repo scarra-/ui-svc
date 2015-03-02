@@ -2,5 +2,6 @@
 .DS_Store
 /public/css/
 /public/js/
+/public/build/
 /vendor/
 .idea
