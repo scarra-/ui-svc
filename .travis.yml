@@ -1,0 +1,48 @@
+language: php
+
+sudo: false
+
+php:
+  - 5.6
+
+git:
+  submodules: false
+  depth: 10
+
+env:
+  global:
+    - secure: "hOCxS7KozwudjuZ8CV9uzQatD4Xk/KwhysqAlUFb4aCQ9g78CD0eJEKg9Df3PYflqxQEq4Jl5g+6IPKVPxADv6QEDM/Y9HhDGaTLhypOwcTj6oYmRVeaJVlvsIp6MJn1DRj2F612hpzFJcqSPhKdOwuXMMlJ1/URDcsIPK7bA00="
+    - secure: "uek63q29pYDx8vl0vadRWO5VFTI85mK3yr+8eiL5v9Vlb5ZJH1nqHbDK7ZM9JyJK7wGOXaK+VVWVsqHBV4WEU2F5RbscA8OlVKBeZbvIc62yCYuSjL0bDnRpRwTubqw7ImUv1WVd+0LVudXGv7AjEQ8gtzf5OpLfeTGvvnwE8f4="
+    - S3_BUCKET="acn-bootcamp-internal"
+    - AWS_REGION="us-east-1"
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction --dev
+
+script:
+  - ./nod_moules/gulp/bin/gulp.js
+
+after_success:
+  - export REPO_NAME=`basename $TRAVIS_REPO_SLUG`
+  - rsync -a --exclude .git --exclude build/ --exclude tests/ . /tmp/build-$TRAVIS_BUILD_NUMBER
+  - mkdir -p /tmp/build-tar/
+  - cd /tmp/build-$TRAVIS_BUILD_NUMBER/
+  - tar -zcvf /tmp/build-tar/$REPO_NAME-$TRAVIS_BUILD_NUMBER.tar.gz .
+  - cd -
+  - ls -la /tmp/build-$TRAVIS_BUILD_NUMBER/
+  - ls -la /tmp/build-tar/
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: $S3_BUCKET
+  local-dir: /tmp/build-tar
+  upload-dir: builds/$REPO_NAME
+  acl: authenticated_read
+  on:
+    branch: master
+
+after_deploy:
+    - php build/deploy.php
