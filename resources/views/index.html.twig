@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="userApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>User Registration</title>
+    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <script>
+        window.userServiceUrl = 'http://user-svc.acn-bootcamp.com';
+        window.contentServiceUrl = 'http://content-svc.acn-bootcamp.com';
+    </script>
+    <!-- pusher-js -->
+    <!-- <script src="lib/pusher.min.js"></script> -->
+    <!-- pusher-angular -->
+    <!-- <script src="lib/pusher-angular.min.js"></script> -->
+</head>
+<body>
+<div class="container">
+    <div class="col-md-3">
+
+        <div ng-include="'partials/signin.html'"></div> <br/>
+        <div ng-include="'partials/registration.html'"></div><br/>
+
+    </div>
+
+
+    <div class="col-md-9">
+        <div ng-include="'partials/msgBox.html'"></div>
+    </div>
+</div>
+</div>
+<script src="{{ elixir('js/app.js') }}"></script>
+</body>
+</html>
