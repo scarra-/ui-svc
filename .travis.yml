@@ -20,7 +20,7 @@ before_script:
   - npm install
 
 script:
-  - ./node_moules/.bin/gulp
+  - ./node_modules/.bin/gulp
 
 after_success:
   - export REPO_NAME=`basename $TRAVIS_REPO_SLUG`
