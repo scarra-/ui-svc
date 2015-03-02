@@ -1,10 +1,7 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
-require('ng-storage');
 //require('./pusher.min');
-//require('pusher-angular');
-//require('./my-pusher');
 
 
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
@@ -53,3 +50,6 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
             });
         };
     }]);
+
+require('pusher-angular');
+require('./my-pusher');
