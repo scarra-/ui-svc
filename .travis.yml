@@ -17,9 +17,10 @@ env:
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --prefer-source --no-interaction --dev
+  - npm install
 
 script:
-  - ./nod_moules/gulp/bin/gulp.js
+  - ./node_moules/.bin/gulp
 
 after_success:
   - export REPO_NAME=`basename $TRAVIS_REPO_SLUG`
