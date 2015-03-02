@@ -15,15 +15,18 @@ $client = CodeDeployClient::factory([
 
 $repoName    = getenv('REPO_NAME');
 $buildnumber = getenv('TRAVIS_BUILD_NUMBER');
+$s3Bucket    = getenv('S3_BUCKET');
 
 $result = $client->registerApplicationRevision([
     'applicationName' => 'project-example',
     'revision' => [
         'revisionType' => 'S3',
         's3Location' => [
-            'bucket' => 'acn-bootcamp-internal',
+            'bucket' => $s3Bucket,
             'key'    => "builds/{$repoName}/{$repoName}-{$buildnumber}.tar.gz",
             'bundleType' => 'tgz',
         ],
     ],
 ]);
+
+echo "Deployed {$repoName}-{$buildnumber}.tar.gz to {$s3Bucket}/builds/{$repoName}/";
