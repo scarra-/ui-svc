@@ -24,7 +24,7 @@ script:
 
 after_success:
   - export REPO_NAME=`basename $TRAVIS_REPO_SLUG`
-  - rsync -a --exclude .git --exclude /build/ --exclude tests/ --exclude node_modules/ . /tmp/build-$TRAVIS_BUILD_NUMBER
+  - rsync -a --exclude .git --exclude ./build/ --exclude tests/ --exclude node_modules/ . /tmp/build-$TRAVIS_BUILD_NUMBER
   - mkdir -p /tmp/build-tar/
   - cd /tmp/build-$TRAVIS_BUILD_NUMBER/
   - tar -zcvf /tmp/build-tar/$REPO_NAME-$TRAVIS_BUILD_NUMBER.tar.gz .
