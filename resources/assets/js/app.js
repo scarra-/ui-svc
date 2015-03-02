@@ -4,7 +4,6 @@ require('angular-route/angular-route.min');
 //require('./pusher.min');
 //require('./pusher-angular.min');
 require('pusher-angular');
-require('./my-pusher');
 
 
 
@@ -14,7 +13,7 @@ if(typeof angular == 'undefined') {
 }
 
 
-var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
+var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
     .factory('UserService', ['$resource', function($resource) {
         return $resource('/users/:id', {id:'@id'}, {
             update: {method: 'PUT'}
@@ -25,6 +24,9 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
     .controller('HomeController', [function() {
         var self = this;
         self.title = 'asdasd';
+    }])
+    .controller('Controller', ['$scope', function($scope) {
+        $scope.user = {};
     }])
     .controller('RegisterController', ['UserService', function(UserService) {
         var self = this;
@@ -52,8 +54,4 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
 }]);
 
 
-    var validator = angular.module('userApp', [])
-     .controller('Controller', ['$scope', function($scope) {
-       $scope.user = {};
-//d
-     }]);
+require('./my-pusher');

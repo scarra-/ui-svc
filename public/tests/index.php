@@ -5,8 +5,11 @@
  * Date: 2/27/2015
  * Time: 3:58 PM
  */
+error_reporting(0);
+//die('kaka');
 require('lib/Pusher.php');
 Dotenv::load(__DIR__);
+die('kaka');
 
 $app_id = getenv(APP_ID);
 $app_key = getenv(APP_KEY);
