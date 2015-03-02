@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: .
+    destination: /http/ui-svc
+hooks:
+  BeforeInstall:
+    - location: hooks/before_install
+      timeout: 300
+      runas: root
