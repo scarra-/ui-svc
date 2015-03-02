@@ -1,17 +1,17 @@
 <!-- REGISTRATION FORM  ~  novalidate disables HTML5 validation-->
-<form class="" name="register_form"  novalidate>
+<form class="" name="registrationForm" ng-controller="RegisterController as regCtrl" ng-submit="regCtrl.registerUser()" novalidate>
+	<input ng-model="regCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username"
+	required
+	>
 
-<h2>Please register</h2>
+	<input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address">
+	<!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
+	<span ng-hide="registrationForm.email.$error.invalid">email not valid</span>
 
-<input type="username" name="username" id="inputUsername" class="form-control" placeholder="Username">
-<!-- <p ng-show="" class="help-block">username is already taken</p>   // Validate if username is already taken-->
+	<input type="password" ng-model="regCtrl.user.password" name="password" class="form-control" placeholder="Password"
+    required 
+	>
+	<!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
 
-<input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address">
-<p ng-show="" class="help-block">Enter a valid email.</p>
-
-<input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
-<p ng-show="" class="help-block">Enter a valid email.</p>
-
-
-<button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="userForm.$invalid">Register</button>
+	<button class="btn btn-lg btn-primary btn-block" ng-disabled="registrationForm.$invalid" type="submit">Register</button>
 </form>

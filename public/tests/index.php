@@ -6,10 +6,11 @@
  * Time: 3:58 PM
  */
 require('lib/Pusher.php');
+Dotenv::load(__DIR__);
 
-$app_id = '108815';
-$app_key = '7b0cc00ab6716c7191b4';
-$app_secret = 'e8171f83e6bcd7d88342';
+$app_id = getenv(APP_ID);
+$app_key = getenv(APP_KEY);
+$app_secret = getenv(APP_SECRET);
 
 $pusher = new Pusher($app_key, $app_secret, $app_id);
 
