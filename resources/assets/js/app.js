@@ -2,28 +2,38 @@ require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
 
+function AuthService() {
+    var isLoggedIn = false;
 
+    this.isLoggedIn = function() {
+        console.log(window.sessionStorage);
+        if (typeof window.sessionStorage.token != 'undefined') {
+            isLoggedIn = true;
+
+        }
+        console.log(isLoggedIn);
+        return isLoggedIn;
+    };
+
+    this.login = function() {
+        console.log("login caled");
+        isLoggedIn = true;
+    };
+
+    this.logout = function() {
+        isLoggedIn = false;
+        console.log("calling logout");
+    };
+
+}
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
     .factory('UserService', ['$resource', function($resource) {
         return $resource(window.userServiceUrl+'/users/:id', {id:'@id'}, {
             update: {method: 'PUT'}
         });
     }])
-    .factory('LoggedInService', [function() {
-        var isLoggedIn = false;
-        return {
-            isLoggedIn: function() {
-                return isLoggedIn;
-            },
-            login: function() {
-                console.log("login caled");
-                isLoggedIn = true;
-            },
-            logout: function() {
-                isLoggedIn = false;
-            }
-        }
-    }])
+    .service('LoggedInService', [AuthService])
+
 
     .controller('MainController', ['LoggedInService', function(LoggedInService) {
         var self = this;
@@ -57,6 +67,13 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
                 console.log(errorResponse.data);
             });
         };
+        self.logout = function() {
+            console.log("logging out");
+            LoggedInService.logout();
+            delete window.sessionStorage.token;
+            console.log(window.sessionStorage.token);
+
+        }
     }])
     .controller('MsgController', ['$http', function($http) {
         var self = this;
