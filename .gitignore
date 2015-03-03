@@ -6,3 +6,4 @@
 /vendor/
 .idea
 .env
+/public/php/config.php

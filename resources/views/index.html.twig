@@ -10,29 +10,33 @@
     <title>User Registration</title>
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     <script>
-        window.userServiceUrl = 'http://user-svc.acn-bootcamp.com';
+        window.userServiceUrl = 'http://user.acn-bootcamp.com';
         window.contentServiceUrl = 'http://content-svc.acn-bootcamp.com';
     </script>
     <!-- pusher-js -->
     <script src="lib/pusher.min.js"></script>
 </head>
-<body>
-<div class="container">
-    <div class="col-md-3">
-        <div ng-include="'partials/auth.html'"></div>
-        <br/>
+<body ng-controller="MainController as mainCtrl">
+<div class="container" ng-switch on="mainCtrl.auth()">
+    <div class="col-md-3" >
 
-        <div ng-include="'partials/signin.html'"></div>
-        <br/>
+        <div ng-switch-when="false">
+            <div ng-include="'partials/signin.html'"></div>
+            <div ng-include="'partials/registration.html'"></div>
+        </div>
 
-        <div ng-include="'partials/registration.html'"></div>
-        <br/>
 
+        <div ng-switch-when="true">
+            <div ng-include="'partials/profile.html'"></div>
+        </div>
+        <br/>
 
     </div>
     <div class="col-md-9">
-        <div ng-include="'partials/msgBox.html'"></div>
-        
+        <div ng-switch-when="true">
+            <div ng-include="'partials/msgBox.html'"></div>
+        </div>
+
         <div ng-include="'partials/stream.html'"></div>
     </div>
 </div>
