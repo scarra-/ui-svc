@@ -84,12 +84,12 @@ var messageApp = angular.module('messageApp', [/*'ngRoute',*/ 'ngResource', 'pus
             });
         };
     }])
-    .controller('PusherController', ['MessageStreamService', '$pusher', function (MessageStreamService, $pusher) {
+    .controller('PusherController', ['AppConfig', 'MessageStreamService', '$pusher', function (AppConfig, MessageStreamService, $pusher) {
         var self = this;
 
         self.tweets = MessageStreamService.getMessages;
 
-        var client     = new Pusher('7b0cc00ab6716c7191b4');
+        var client     = new Pusher(AppConfig.pusherAppKey);
         var pusher     = $pusher(client);
         var my_channel = pusher.subscribe('public_channel');
 
