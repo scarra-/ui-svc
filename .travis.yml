@@ -13,7 +13,6 @@ env:
   global:
     - S3_BUCKET="acn-bootcamp-internal"
     - AWS_REGION="us-east-1"
-    - PRODUCTION="true"
 
 before_script:
   - travis_retry composer self-update
@@ -21,7 +20,7 @@ before_script:
   - npm install
 
 script:
-  - ./node_modules/.bin/gulp
+  - ./node_modules/.bin/gulp --production
 
 after_success:
   - export REPO_NAME=`basename $TRAVIS_REPO_SLUG`
