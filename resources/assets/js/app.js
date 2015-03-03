@@ -1,6 +1,7 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
+require('pusher-angular');
 
 function AuthService() {
     var isLoggedIn = false;
@@ -24,8 +25,25 @@ function AuthService() {
         isLoggedIn = false;
         console.log("calling logout");
     };
-
 }
+
+
+function StreamService() {
+    var messages = [];
+
+    this.getMessages = function() {
+        return messages;
+    };
+
+    this.addMessage = function(message) {
+        messages.push(message);
+    };
+
+    this.clearMessages = function() {
+        messages = [];
+    }
+}
+
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
     .factory('UserService', ['$resource', function($resource) {
         return $resource(window.userServiceUrl+'/users/:id', {id:'@id'}, {
@@ -34,6 +52,7 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
     }])
     .service('LoggedInService', [AuthService])
 
+    .service('MessageStreamService', [StreamService])
 
     .controller('MainController', ['LoggedInService', function(LoggedInService) {
         var self = this;
@@ -54,7 +73,7 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
             });
         };
     }])
-    .controller('LoginController', ['$http', 'LoggedInService', function($http, LoggedInService) {
+    .controller('LoginController', ['$http', 'LoggedInService', 'MessageStreamService', function($http, LoggedInService, MessageStreamService) {
         var self = this;
 
         self.login = function() {
@@ -62,6 +81,7 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
             $http.post(window.userServiceUrl+'/authenticate', self.user).then(function(response) {
                window.sessionStorage.token = response.data.token;
                LoggedInService.login();
+               MessageStreamService.clearMessages();
 
             }, function(errorResponse) {
                 console.log(errorResponse.data);
@@ -87,6 +107,22 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
                 console.log(errorResponse.data);
             });
         };
+    }])
+    .controller('PusherController', ['MessageStreamService', '$pusher', function (MessageStreamService, $pusher) {
+        var self = this;
+        var client = new Pusher('7b0cc00ab6716c7191b4');
+        var pusher = $pusher(client);
+        var my_channel = pusher.subscribe('public_channel');
+        /**
+         * '$scope.tweets' variable should receive history of last 20 tweets when user enters login page.
+         * then while he is entering login information, tweet array will be updated with new tweets
+         */
+        self.tweets = MessageStreamService.getMessages;
+        MessageStreamService.addMessage({name: "Karlis", message: "hello! my name is Karlis", time: "Monday 2nd of March 2015 07:21:53 PM"});
+        my_channel.bind('new_tweet', function (data) {
+                // self.tweets.unshift(data);
+                //console.log(data);
+            }
+        );
     }]);
-require('pusher-angular');
-require('./my-pusher');
+// require('./my-pusher');
