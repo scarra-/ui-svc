@@ -13,6 +13,7 @@ env:
   global:
     - S3_BUCKET="acn-bootcamp-internal"
     - AWS_REGION="us-east-1"
+    - PRODUCTION="true"
 
 before_script:
   - travis_retry composer self-update
