@@ -97,4 +97,34 @@ ul.activity-stream li .activity-actions {
 ul.activity-stream li .activity-actions span b {
   font-weight: normal;
 }
->>>>>>> 72f954c18c7c9e609b0f3919aa0cbde122a98286
+.repeat-animation.ng-enter,
+.repeat-animation.ng-leave,
+.repeat-animation.ng-move {
+  -webkit-transition: all linear 1s;
+  -moz-transition: all linear 1s;
+  -o-transition: all linear 1s;
+  transition: all linear 1s;
+
+  position:relative;
+  left:5px;
+}
+.repeat-animation.ng-enter {
+  opacity: 0;
+}
+.repeat-animation.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.repeat-animation.ng-leave {
+  opacity: 1;
+}
+.repeat-animation.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+.repeat-animation.ng-move {
+  left:2px;
+  opacity: 0.5;
+}
+.repeat-animation.ng-move.ng-move-active {
+  left:0;
+  opacity: 1;
+}

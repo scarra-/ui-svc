@@ -15,7 +15,7 @@ $app_secret = getenv(APP_SECRET);
 
 $pusher = new Pusher($app_key, $app_secret, $app_id);
 
-for ($i = 1; $i <= 60; $i++) {
+for ($i = 1; $i <= 40; $i++) {
 
     sleep(1);
     $data['name'] = 'Karlis';
