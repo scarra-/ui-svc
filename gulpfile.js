@@ -1,5 +1,6 @@
 var elixir = require('laravel-elixir');
 require('laravel-elixir-browserify');
+require('laravel-elixir-ng-html2js');
 
 /*
  |--------------------------------------------------------------------------
@@ -14,6 +15,7 @@ require('laravel-elixir-browserify');
 
 elixir(function(mix) {
     mix.less('app.less')
+       .ngHtml2Js()
        .browserify('app.js')
        .version(['css/app.css', 'js/app.js']);
 });

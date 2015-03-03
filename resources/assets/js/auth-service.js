@@ -2,9 +2,8 @@ module.exports = function () {
     var isLoggedIn = false;
 
     this.isLoggedIn = function() {
-        if (typeof window.sessionStorage.token != 'undefined') {
+        if (window.localStorage.getItem('bootcamp.token') !== null) {
             isLoggedIn = true;
-
         }
         return isLoggedIn;
     };

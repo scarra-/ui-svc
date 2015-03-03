@@ -15,23 +15,23 @@
         <div class="col-md-3" >
 
             <div ng-switch-when="false">
-                <div ng-include="'partials/signin.html'"></div>
-                <div ng-include="'partials/registration.html'"></div>
+                <div ng-include="'signin.html'"></div>
+                <div ng-include="'registration.html'"></div>
             </div>
 
 
             <div ng-switch-when="true">
-                <div ng-include="'partials/profile.html'"></div>
+                <div ng-include="'profile.html'"></div>
             </div>
             <br/>
 
         </div>
         <div class="col-md-9">
             <div ng-switch-when="true">
-                <div ng-include="'partials/msgBox.html'"></div>
+                <div ng-include="'msgBox.html'"></div>
             </div>
 
-            <div ng-include="'partials/stream.html'"></div>
+            <div ng-include="'stream.html'"></div>
         </div>
     </div>
     <script src="//js.pusher.com/2.2/pusher.min.js"></script>
