@@ -1,0 +1,19 @@
+<form class=""
+      name="msgForm"
+      ng-controller="MsgController as msgCtrl"
+      ng-submit="msgCtrl.sendMessage();"
+      novalidate
+>
+    <textarea name="message"
+    		      ng-model="msgCtrl.msg.message"
+              class="form-control custom-control" 
+              rows="3"
+              required >
+    </textarea>  
+
+    <button id="sendMsg"
+            class="btn btn-sm btn-primary btn-block"
+            type="submit"
+            ng-disabled="msgForm.$invalid">Send msg
+    </button>
+</form>

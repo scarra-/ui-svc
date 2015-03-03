@@ -1,7 +1,8 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
-//require('pusher-angular/public/components/angular/angular');
+
+
 
 
 var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
@@ -30,7 +31,7 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
         self.login = function() {
             console.log(self.user);
             $http.post(window.userServiceUrl+'/authenticate', self.user).then(function(response) {
-                window.sessionStorage.token = response.data.token;
+               window.sessionStorage.token = response.data.token;
 
             }, function(errorResponse) {
                 console.log(errorResponse.data);
@@ -42,14 +43,22 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
 
         self.sendMessage = function() {
             console.log(self.msg);
-            $http.post(window.contentServiceUrl+'/messages', self.msg).then(function() {
-
+            $http.post(window.contentServiceUrl+'/messages', self.msg).then(function() {gi
+              
 
             }, function(errorResponse) {
                 console.log(errorResponse.data);
             });
         };
+    }])
+    .controller('AuthController', ['$scope', function($scope) {
+        $scope.auth = function(user) {
+          console.log(user.bool);
+        };
     }]);
-
 require('pusher-angular');
 require('./my-pusher');
+
+
+
+
