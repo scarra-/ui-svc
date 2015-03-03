@@ -1,57 +1,43 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
-require('angular-route/angular-route.min');
+// require('angular-route/angular-route.min');
 require('pusher-angular');
+require('angular-local-storage');
 
-function AuthService() {
-    var isLoggedIn = false;
+var AuthService   = require('./auth-service');
+var StreamService = require('./stream-service');
 
-    this.isLoggedIn = function() {
-        console.log(window.sessionStorage);
-        if (typeof window.sessionStorage.token != 'undefined') {
-            isLoggedIn = true;
 
+var AppConfig = angular.module('AppConfig', [])
+    .provider('AppConfig', function () {
+    var config = {
+        userServiceUrl: 'http://api.acn-bootcamp.com',
+        contentServiceUrl: 'http://api.acn-bootcamp.com',
+    };
+
+    return {
+        set: function (settings) {
+            config = settings;
+        },
+        $get: function () {
+            return config;
         }
-        console.log(isLoggedIn);
-        return isLoggedIn;
     };
+});
 
-    this.login = function() {
-        console.log("login caled");
-        isLoggedIn = true;
-    };
+var messageApp = angular.module('messageApp', [/*'ngRoute',*/ 'ngResource', 'pusher-angular', 'LocalStorageModule', 'AppConfig'])
+    .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+        localStorageServiceProvider
+            .setPrefix('bootcamp')
+            .setNotify(true, true);
+    }])
 
-    this.logout = function() {
-        isLoggedIn = false;
-        console.log("calling logout");
-    };
-}
-
-
-function StreamService() {
-    var messages = [];
-
-    this.getMessages = function() {
-        return messages;
-    };
-
-    this.addMessage = function(message) {
-        messages.push(message);
-    };
-
-    this.clearMessages = function() {
-        messages = [];
-    }
-}
-
-var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
-    .factory('UserService', ['$resource', function($resource) {
-        return $resource(window.userServiceUrl+'/users/:id', {id:'@id'}, {
+    .factory('UserService', ['$resource', 'AppConfig', function($resource, AppConfig) {
+        return $resource(AppConfig.userServiceUrl + '/users/:id', {id:'@id'}, {
             update: {method: 'PUT'}
         });
     }])
     .service('LoggedInService', [AuthService])
-
     .service('MessageStreamService', [StreamService])
 
     .controller('MainController', ['LoggedInService', function(LoggedInService) {
@@ -59,7 +45,7 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
         self.auth = LoggedInService.isLoggedIn;
     }])
 
-    .controller('RegisterController', ['$scope', 'UserService', function($scope, UserService) {
+    .controller('RegisterController', ['UserService', function(UserService) {
         var self = this;
 
         self.registerUser = function() {
@@ -67,62 +53,50 @@ var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angula
             user.$save(function(success) {
                 self.user = {};
             }, function(failure) {
-                console.log(failure.data);
-                // registrationForm.email'].$invalid = true;
-                $scope.registrationForm.email.$setValidity('email',false);
             });
         };
     }])
-    .controller('LoginController', ['$http', 'LoggedInService', 'MessageStreamService', function($http, LoggedInService, MessageStreamService) {
+    .controller('LoginController', ['$http', 'AppConfig', 'LoggedInService', 'MessageStreamService', 'localStorageService', function($http, AppConfig, LoggedInService, MessageStreamService, storage) {
         var self = this;
 
         self.login = function() {
-            console.log(self.user);
-            $http.post(window.userServiceUrl+'/authenticate', self.user).then(function(response) {
-               window.sessionStorage.token = response.data.token;
+            $http.post(AppConfig.userServiceUrl+'/authenticate', self.user).then(function(response) {
                LoggedInService.login();
                MessageStreamService.clearMessages();
+               storage.set('token', response.data.token);
 
             }, function(errorResponse) {
-                console.log(errorResponse.data);
             });
         };
         self.logout = function() {
-            console.log("logging out");
             LoggedInService.logout();
-            delete window.sessionStorage.token;
-            console.log(window.sessionStorage.token);
+            storage.removeItem('token');
 
         }
     }])
-    .controller('MsgController', ['$http', function($http) {
+    .controller('MsgController', ['$http', 'AppConfig', function($http, AppConfig) {
         var self = this;
 
         self.sendMessage = function() {
-            console.log(self.msg);
-            $http.post(window.contentServiceUrl+'/messages', self.msg).then(function() {gi
-
-
+            $http.post(AppConfig.contentServiceUrl+'/messages', self.msg).then(function() {
+                self.msg = {};
             }, function(errorResponse) {
-                console.log(errorResponse.data);
             });
         };
     }])
     .controller('PusherController', ['MessageStreamService', '$pusher', function (MessageStreamService, $pusher) {
         var self = this;
-        var client = new Pusher('7b0cc00ab6716c7191b4');
-        var pusher = $pusher(client);
-        var my_channel = pusher.subscribe('public_channel');
-        /**
-         * '$scope.tweets' variable should receive history of last 20 tweets when user enters login page.
-         * then while he is entering login information, tweet array will be updated with new tweets
-         */
+
         self.tweets = MessageStreamService.getMessages;
+
+        var client     = new Pusher('7b0cc00ab6716c7191b4');
+        var pusher     = $pusher(client);
+        var my_channel = pusher.subscribe('public_channel');
+
         MessageStreamService.addMessage({name: "Karlis", message: "hello! my name is Karlis", time: "Monday 2nd of March 2015 07:21:53 PM"});
+
         my_channel.bind('new_tweet', function (data) {
                 // self.tweets.unshift(data);
-                //console.log(data);
             }
         );
     }]);
-// require('./my-pusher');

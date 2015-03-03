@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="userApp">
+<html lang="en" ng-app="messageApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,37 +9,40 @@
 
     <title>User Registration</title>
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
-    <script>
-        window.userServiceUrl = 'http://user.acn-bootcamp.com';
-        window.contentServiceUrl = 'http://content-svc.acn-bootcamp.com';
-    </script>
-    <!-- pusher-js -->
-    <script src="lib/pusher.min.js"></script>
 </head>
 <body ng-controller="MainController as mainCtrl">
-<div class="container" ng-switch on="mainCtrl.auth()">
-    <div class="col-md-3" >
+    <div class="container" ng-switch on="mainCtrl.auth()">
+        <div class="col-md-3" >
 
-        <div ng-switch-when="false">
-            <div ng-include="'partials/signin.html'"></div>
-            <div ng-include="'partials/registration.html'"></div>
+            <div ng-switch-when="false">
+                <div ng-include="'partials/signin.html'"></div>
+                <div ng-include="'partials/registration.html'"></div>
+            </div>
+
+
+            <div ng-switch-when="true">
+                <div ng-include="'partials/profile.html'"></div>
+            </div>
+            <br/>
+
         </div>
+        <div class="col-md-9">
+            <div ng-switch-when="true">
+                <div ng-include="'partials/msgBox.html'"></div>
+            </div>
 
-
-        <div ng-switch-when="true">
-            <div ng-include="'partials/profile.html'"></div>
+            <div ng-include="'partials/stream.html'"></div>
         </div>
-        <br/>
-
     </div>
-    <div class="col-md-9">
-        <div ng-switch-when="true">
-            <div ng-include="'partials/msgBox.html'"></div>
-        </div>
-
-        <div ng-include="'partials/stream.html'"></div>
-    </div>
-</div>
-<script src="{{ elixir('js/app.js') }}"></script>
+    <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
+    <script>
+        angular.module('AppConfig').config(function (AppConfigProvider) {
+            AppConfigProvider.set({
+                userServiceUrl: '{{ app.environment.USER_SERVICE_URL }}',
+                contentServiceUrl: '{{ app.environment.CONTENT_SERVICE_URL }}',
+            });
+        });
+    </script>
 </body>
 </html>
