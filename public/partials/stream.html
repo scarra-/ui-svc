@@ -1,12 +1,22 @@
-<ul id="activity_stream_example" class="activity-stream no-actions">
-
+<ul ng-controller="PusherController" id="activity_stream_example" class="activity-stream no-actions">
+    <li class="activity test-event" ng-repeat="tweet in tweets">
+        <div class="stream-item-content">
+            <div class="image"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
+                    width="48" height="48"></div>
+            <div class="content">
+                <div class="activity-row"><span class="user-name"><em>{{ tweet.name }}</em></span></div>
+                <div class="activity-row">
+                    <div class="text">{{ tweet.message }}</div>
+                    <div class="activity-row"><a class="timestamp"><span title="{{ time }}">{{ tweet.time }}</span></a><span
+                            class="activity-actions"><span class="tweet-action action-favorite">
+                        <a href="#"
+                           class="like-action"
+                           data-activity="like"
+                           title="Like"><span><i></i><b>Like</b></span></a></span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
 </ul>
-
-<div ng-app="main">
-    <div ng-controller="MyCtrl">
-        <button ng-click="add()" >Add</button>
-        <div id="container">
-            <div ng-repeat="test in tests">{{test.name}}</div>
-</div>
-</div>
-</div>
+<a href="/tests" target="_blank">test</a>

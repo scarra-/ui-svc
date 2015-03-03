@@ -1,59 +1,55 @@
-//require('angular/angular.min');
+require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
-//require('./pusher.min');
-//require('./pusher-angular.min');
-require('pusher-angular');
-require('./my-pusher');
+//require('pusher-angular/public/components/angular/angular');
 
 
-
-
-if(typeof angular == 'undefined') {
-    alert('no angular');
-}
-
-
-var userApp = angular.module('userApp', ['ngRoute', 'ngResource'])
+var userApp = angular.module('userApp', ['ngRoute', 'ngResource', 'pusher-angular'])
     .factory('UserService', ['$resource', function($resource) {
-        return $resource('/users/:id', {id:'@id'}, {
+        return $resource(window.userServiceUrl+'/users/:id', {id:'@id'}, {
             update: {method: 'PUT'}
         });
     }])
-
-
-    .controller('HomeController', [function() {
-        var self = this;
-        self.title = 'asdasd';
-    }])
-    .controller('RegisterController', ['UserService', function(UserService) {
+    .controller('RegisterController', ['$scope', 'UserService', function($scope, UserService) {
         var self = this;
 
         self.registerUser = function() {
             var user = new UserService(self.user);
             user.$save(function(success) {
-
                 self.user = {};
             }, function(failure) {
-                console.log(failure);
+                console.log(failure.data);
+                // registrationForm.email'].$invalid = true;
+                $scope.registrationForm.email.$setValidity('email',false);
             });
         };
     }])
-    .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/', {
-          templateUrl: 'partials/home.html'
-        //   controller: 'HomeController'
-        })
-        .when('/register', {
-          templateUrl: 'partials/register.html'
-        //   controller: 'RegisterController'
-        })
-        .otherwise({redirectTo: '/'});
-}]);
+    .controller('LoginController', ['$http', function($http) {
+        var self = this;
+
+        self.login = function() {
+            console.log(self.user);
+            $http.post(window.userServiceUrl+'/authenticate', self.user).then(function(response) {
+                window.sessionStorage.token = response.data.token;
+
+            }, function(errorResponse) {
+                console.log(errorResponse.data);
+            });
+        };
+    }])
+    .controller('MsgController', ['$http', function($http) {
+        var self = this;
+
+        self.sendMessage = function() {
+            console.log(self.msg);
+            $http.post(window.contentServiceUrl+'/messages', self.msg).then(function() {
 
 
-    var validator = angular.module('userApp', [])
-     .controller('Controller', ['$scope', function($scope) {
-       $scope.user = {};
-//d
-     }]);
+            }, function(errorResponse) {
+                console.log(errorResponse.data);
+            });
+        };
+    }]);
+
+require('pusher-angular');
+require('./my-pusher');
