@@ -4,7 +4,6 @@ try {
 } catch (e) {
   module = angular.module('partialsModule', []);
 }
-
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('auth.html',
     '<form ng-controller="AuthController as autcCtrl"\n' +
@@ -32,6 +31,43 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('editprofile.html',
     '<h1>edit profile page</h1>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('partialsModule');
+} catch (e) {
+  module = angular.module('partialsModule', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('main.html',
+    '<div ng-controller="MainController as mainCtrl">\n' +
+    '    <div class="container" ng-switch on="mainCtrl.auth()">\n' +
+    '        <div class="col-md-3" >\n' +
+    '\n' +
+    '            <div ng-switch-when="false">\n' +
+    '                <div ng-include="\'signin.html\'"></div>\n' +
+    '                <div ng-include="\'registration.html\'"></div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '\n' +
+    '            <div ng-switch-when="true">\n' +
+    '                <div ng-include="\'profile.html\'"></div>\n' +
+    '            </div>\n' +
+    '            <br/>\n' +
+    '\n' +
+    '        </div>\n' +
+    '        <div class="col-md-9">\n' +
+    '            <div ng-switch-when="true">\n' +
+    '                <div ng-include="\'msgBox.html\'"></div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div ng-include="\'stream.html\'"></div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
 }]);
 })();
 
@@ -120,6 +156,35 @@ try {
   module = angular.module('partialsModule', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('requestReset.html',
+    '<div ng-controller="MainController as mainCtrl">\n' +
+    '    <div class="container" ng-switch on="mainCtrl.auth()">\n' +
+    '        <div class="col-md-12" >\n' +
+    '\n' +
+    '            <form class="" name="requestResetForm" ng-controller="RequestResetController as requestResetCtrl"\n' +
+    '            ng-submit="requestResetCtrl.requestReset()" novalidate>\n' +
+    '            \n' +
+    '                <input ng-model="requestResetCtrl.reset.email" name="requestReset" type="email" class="form-control"\n' +
+    '                placeholder="email" required>\n' +
+    '\n' +
+    '                <button class="btn btn-lg btn-primary btn-block" ng-disabled="requestResetForm.$invalid" type="submit">Reset</button>\n' +
+    '            </form>\n' +
+    '\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('partialsModule');
+} catch (e) {
+  module = angular.module('partialsModule', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('signin.html',
     '\n' +
     '<div class="signin">\n' +
@@ -135,6 +200,7 @@ module.run(['$templateCache', function($templateCache) {
     '		<button class="btn btn-lg btn-primary btn-block" ng-disabled="loginForm.$invalid" type="submit">Login</button>\n' +
     '	</form>\n' +
     '\n' +
+    '		<a href="#/forgotPassword">Forgot Password?</a>\n' +
     '</div>\n' +
     '');
 }]);

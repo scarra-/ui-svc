@@ -1,0 +1,17 @@
+<div ng-controller="MainController as mainCtrl">
+    <div class="container" ng-switch on="mainCtrl.auth()">
+        <div class="col-md-12" >
+
+            <form class="" name="requestResetForm" ng-controller="RequestResetController as requestResetCtrl"
+            ng-submit="requestResetCtrl.requestReset()" novalidate>
+            
+                <input ng-model="requestResetCtrl.reset.email" name="requestReset" type="email" class="form-control"
+                placeholder="email" required>
+
+                <button class="btn btn-lg btn-primary btn-block" ng-disabled="requestResetForm.$invalid" type="submit">Reset</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>

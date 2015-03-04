@@ -28,6 +28,7 @@ angular.module('messageApp.LoginController', [ 'LocalStorageModule', 'AppConfig'
                storage.set('token', response.data.token);
 
                var encodedProfile = response.data.token.split('.')[1];
+
                storage.set('profile', JSON.parse(url_base64_decode(encodedProfile)));
             }, function(errorResponse) {
             });
