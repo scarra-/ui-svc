@@ -16,7 +16,7 @@ To get everything working:
                   ** if getting error then npm install -g npm@latest and then again npm install;
                -/node_modules/gulp/bin/gulp.js
                
-To get ui-svc working you also need a user-sv repository and to get that working:
+To get ui-svc working you also need a user-svc repository and to get that working:
   
       1. git clone URL 
       2. Create an .env file 
