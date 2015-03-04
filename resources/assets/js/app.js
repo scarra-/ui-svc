@@ -13,8 +13,6 @@ require('./controllers/RequestResetController');
 require('./controllers/ProfileController');
 require('./AuthService');
 
-
-// var AuthService   = require('./auth-service');
 var StreamService = require('./stream-service');
 
 
@@ -58,7 +56,6 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
-    // .service('AuthService', [AuthService])
     .service('MessageStreamService', [StreamService])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider

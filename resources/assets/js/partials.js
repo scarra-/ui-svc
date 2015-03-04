@@ -178,7 +178,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '            <form class="" name="requestResetForm" ng-controller="RequestResetController as requestResetCtrl"\n' +
     '            ng-submit="requestResetCtrl.requestReset()" novalidate>\n' +
-    '            \n' +
+    '\n' +
     '                <input ng-model="requestResetCtrl.reset.email" name="requestReset" type="email" class="form-control"\n' +
     '                placeholder="email" required>\n' +
     '\n' +
@@ -186,7 +186,6 @@ module.run(['$templateCache', function($templateCache) {
     '            </form>\n' +
     '\n' +
     '        </div>\n' +
-    '\n' +
     '    </div>\n' +
     '</div>\n' +
     '');
@@ -204,12 +203,9 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '<div class="signin">\n' +
     '	<form class="" name="loginForm" ng-controller="LoginController as loginCtrl" ng-submit="loginCtrl.login()" novalidate>\n' +
-    '		<input ng-model="loginCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username"\n' +
-    '		required\n' +
-    '		>\n' +
-    '		<input type="password" ng-model="loginCtrl.user.password" name="password" class="form-control" placeholder="Password"\n' +
-    '		required\n' +
-    '		>\n' +
+    '		<input ng-model="loginCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username" required >\n' +
+    '\n' +
+    '		<input type="password" ng-model="loginCtrl.user.password" name="password" class="form-control" placeholder="Password" required >\n' +
     '		<!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
     '\n' +
     '		<button class="btn btn-lg btn-primary btn-block" ng-disabled="loginForm.$invalid" type="submit">Login</button>\n' +

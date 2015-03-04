@@ -23,14 +23,14 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
         'localStorageService',
         function($http, AppConfig, MessageStreamService, storage) {
             var self = this;
+            var isLoggedIn = false;
 
             self.user = {};
 
+            // used for setting user from LoginController
             self.setUser = function(user) {
                 self.user = user;
             };
-
-            var isLoggedIn = false;
 
             self.isLoggedIn = function() {
                 if (window.localStorage.getItem('bootcamp.token') !== null) {
@@ -46,10 +46,9 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     var encodedProfile = response.data.token.split('.')[1];
 
                     storage.set('profile', JSON.parse(url_base64_decode(encodedProfile)).user);
-                    
 
                 }, function(errorResponse) {
-
+                    // need some action if fails 
                 });
 
                 isLoggedIn = true;
