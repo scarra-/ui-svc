@@ -1,5 +1,5 @@
 angular.module('messageApp.MainController', [])
-    .controller('MainController', ['LoggedInService', function(LoggedInService) {
+    .controller('MainController', ['AuthService', function(AuthService) {
         var self = this;
-        self.auth = LoggedInService.isLoggedIn;
+        self.auth = AuthService.isLoggedIn;
     }]);

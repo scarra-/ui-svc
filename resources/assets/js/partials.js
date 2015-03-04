@@ -87,17 +87,18 @@ module.run(['$templateCache', function($templateCache) {
     '>\n' +
     '    <textarea name="message"\n' +
     '    		      ng-model="msgCtrl.msg.message"\n' +
-    '              class="form-control custom-control" \n' +
+    '              class="form-control custom-control"\n' +
     '              rows="3"\n' +
     '              required >\n' +
-    '    </textarea>  \n' +
+    '    </textarea>\n' +
     '\n' +
     '    <button id="sendMsg"\n' +
-    '            class="btn btn-sm btn-primary btn-block"\n' +
+    '            class="btn btn-sm btn-primary btn-block message-btn-margin"\n' +
     '            type="submit"\n' +
     '            ng-disabled="msgForm.$invalid">Send msg\n' +
     '    </button>\n' +
-    '</form>');
+    '</form>\n' +
+    '');
 }]);
 })();
 
@@ -110,10 +111,24 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('profile.html',
     '<div ng-controller="LoginController as loginCtrl">\n' +
-    '    <button id="logout"\n' +
-    '            class="btn btn-sm btn-primary btn-block"\n' +
-    '            ng-click="loginCtrl.logout()"\n' +
-    '            > Logout </button>\n' +
+    '    <button id="logout" class="btn btn-sm btn-primary btn-block" ng-click="loginCtrl.logout()"> Logout </button>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<div ng-controller="ProfileController as profileCtrl">\n' +
+    '    <div class="panel panel-default profile-panel">\n' +
+    '      <div class="panel-heading">Username</div>\n' +
+    '      <div class="panel-body" ng-bind="profileCtrl.login">\n' +
+    '      </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="panel panel-default">\n' +
+    '      <div class="panel-heading">\n' +
+    '        <h3 class="panel-title">email</h3>\n' +
+    '      </div>\n' +
+    '      <div class="panel-body" ng-bind="profileCtrl.email">\n' +
+    '      </div>\n' +
+    '    </div>\n' +
     '</div>\n' +
     '');
 }]);

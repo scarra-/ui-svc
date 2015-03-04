@@ -1,6 +1,20 @@
 <div ng-controller="LoginController as loginCtrl">
-    <button id="logout"
-            class="btn btn-sm btn-primary btn-block"
-            ng-click="loginCtrl.logout()"
-            > Logout </button>
+    <button id="logout" class="btn btn-sm btn-primary btn-block" ng-click="loginCtrl.logout()"> Logout </button>
+</div>
+
+
+<div ng-controller="ProfileController as profileCtrl">
+    <div class="panel panel-default profile-panel">
+      <div class="panel-heading">Username</div>
+      <div class="panel-body" ng-bind="profileCtrl.login">
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">email</h3>
+      </div>
+      <div class="panel-body" ng-bind="profileCtrl.email">
+      </div>
+    </div>
 </div>

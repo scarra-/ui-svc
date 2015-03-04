@@ -5,7 +5,9 @@ angular.module('messageApp.MsgController', ['AppConfig'])
         self.sendMessage = function() {
             $http.post(AppConfig.contentServiceUrl+'/messages', self.msg).then(function() {
                 self.msg = {};
+                
             }, function(errorResponse) {
+
             });
         };
     }]);
