@@ -4,6 +4,7 @@ try {
 } catch (e) {
   module = angular.module('partialsModule', []);
 }
+
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('auth.html',
     '<form ng-controller="AuthController as autcCtrl"\n' +

@@ -39,9 +39,9 @@
     <script>
         angular.module('AppConfig').config(function (AppConfigProvider) {
             AppConfigProvider.set({
-                userServiceUrl: '{{ app.environment.USER_SERVICE_URL }}',
-                contentServiceUrl: '{{ app.environment.CONTENT_SERVICE_URL }}',
-                pusherAppKey: '{{ app.environment.PUSHER_APP_KEY }}',
+                userServiceUrl: '{{ app.environment.UI_SVC_USER_SERVICE_URL }}',
+                contentServiceUrl: '{{ app.environment.UI_SVC_CONTENT_SERVICE_URL }}',
+                pusherAppKey: '{{ app.environment.UI_SVC_PUSHER_APP_KEY }}',
             });
         });
     </script>

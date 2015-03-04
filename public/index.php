@@ -23,7 +23,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app['twig']->addFunction(new Twig_SimpleFunction('elixir', function ($file){
     static $manifest = null;
 
-    if (isset($_ENV['APPLICATION_ENV']) && $_ENV['APPLICATION_ENV'] == 'local') {
+    if (isset($_ENV['UI_SVC_APP_ENV']) && $_ENV['UI_SVC_APP_ENV'] == 'local') {
         return $file;
     }
 
