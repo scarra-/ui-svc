@@ -145,20 +145,22 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '<!-- REGISTRATION FORM  ~  novalidate disables HTML5 validation-->\n' +
     '<form class="" name="registrationForm" ng-controller="RegisterController as regCtrl" ng-submit="regCtrl.registerUser()" novalidate>\n' +
-    '  <input ng-model="regCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username"\n' +
-    '  required\n' +
-    '  >\n' +
     '\n' +
-    '  <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address">\n' +
-    '  <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
-    '  <!-- <span ng-hide="registrationForm.email.$error.invalid">email not valid</span> -->\n' +
+    '    <label ng-show="regCtrl.userError" name="registerError" class="formError">Username is already taken!</label>\n' +
+    '    <label ng-show="regCtrl.mailError" name="registerError" class="formError">There is already registered user with this e-mail!</label>\n' +
     '\n' +
-    '  <input type="password" ng-model="regCtrl.user.password" name="password" class="form-control" placeholder="Password"\n' +
-    '    required\n' +
-    '  >\n' +
-    '  <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
+    '    <input ng-model="regCtrl.user.login" name="login" type="username" class="form-control"\n' +
+    '    placeholder="Username" required >\n' +
     '\n' +
-    '  <button class="btn btn-lg btn-primary btn-block" ng-disabled="registrationForm.$invalid" type="submit">Register</button>\n' +
+    '    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address">\n' +
+    '    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
+    '    <!-- <span ng-hide="registrationForm.email.$error.invalid">email not valid</span> -->\n' +
+    '\n' +
+    '    <input type="password" ng-model="regCtrl.user.password" name="password" class="form-control"\n' +
+    '    placeholder="Password" required >\n' +
+    '    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
+    '\n' +
+    '    <button class="btn btn-lg btn-primary btn-block" ng-disabled="registrationForm.$invalid" type="submit">Register</button>\n' +
     '</form>\n' +
     '');
 }]);
@@ -174,7 +176,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('requestReset.html',
     '<div ng-controller="MainController as mainCtrl">\n' +
     '    <div class="container" ng-switch on="mainCtrl.auth()">\n' +
-    '        <div class="col-md-12" >\n' +
+    '        <div class="col-md-12 password-reset-distribution" >\n' +
     '\n' +
     '            <form class="" name="requestResetForm" ng-controller="RequestResetController as requestResetCtrl"\n' +
     '            ng-submit="requestResetCtrl.requestReset()" novalidate>\n' +
@@ -203,6 +205,8 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '<div class="signin">\n' +
     '	<form class="" name="loginForm" ng-controller="LoginController as loginCtrl" ng-submit="loginCtrl.login()" novalidate>\n' +
+    '		<label ng-show="loginCtrl.loginError()" name="loginError" class="formError">Username or password is incorrect!</label>\n' +
+    '\n' +
     '		<input ng-model="loginCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username" required >\n' +
     '\n' +
     '		<input type="password" ng-model="loginCtrl.user.password" name="password" class="form-control" placeholder="Password" required >\n' +

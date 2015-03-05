@@ -27,6 +27,10 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
             self.user = {};
 
+            self.showError = function() {
+                return self.loginError;
+            }
+
             // used for setting user from LoginController
             self.setUser = function(user) {
                 self.user = user;
@@ -46,13 +50,14 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     var encodedProfile = response.data.token.split('.')[1];
 
                     storage.set('profile', JSON.parse(url_base64_decode(encodedProfile)).user);
+                    self.setUser(userObject);
 
                     isLoggedIn = true;
                 }, function(errorResponse) {
                     // need some action if fails
+                    console.log("finished");
+                    self.loginError = true;
                 });
-
-
             };
 
             self.logout = function() {

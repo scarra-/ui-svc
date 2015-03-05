@@ -10,8 +10,11 @@ angular.module('messageApp.PusherController', [ 'AppConfig'])
 
         MessageStreamService.addMessage({name: "Karlis", message: "hello! my name is Karlis", time: "Monday 2nd of March 2015 07:21:53 PM"});
 
-        my_channel.bind('new_tweet', function (data) {
+        my_channel.bind('newTweet', function (data) {
                 // self.tweets.unshift(data);
+                MessageStreamService.addMessage(data);
+                console.log(data);
+
             }
         );
     }]);

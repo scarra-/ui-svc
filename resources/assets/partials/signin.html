@@ -1,6 +1,8 @@
 
 <div class="signin">
 	<form class="" name="loginForm" ng-controller="LoginController as loginCtrl" ng-submit="loginCtrl.login()" novalidate>
+		<label ng-show="loginCtrl.loginError()" name="loginError" class="formError">Username or password is incorrect!</label>
+
 		<input ng-model="loginCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username" required >
 
 		<input type="password" ng-model="loginCtrl.user.password" name="password" class="form-control" placeholder="Password" required >
