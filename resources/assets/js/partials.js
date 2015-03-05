@@ -42,23 +42,39 @@ try {
 }
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('header.html',
-    '<div class="jumbotron">\n' +
-    '    <nav class="navbar navbar-inverse navbar-fixed-top container-padding">\n' +
-    '        <div class="container ">\n' +
-    '            <div class="navbar-header">\n' +
-    '                <h3 class="navbar-text">Bootcamp app</h3>\n' +
+    '\n' +
+    '<div ng-controller="ProfileController as profileCtrl">\n' +
+    '    <div class="jumbotron" ng-switch on="profileCtrl.auth()">\n' +
+    '        <nav class="navbar navbar-inverse navbar-fixed-top container-padding">\n' +
+    '            <div class="container">\n' +
+    '                <div ng-switch-when="true">\n' +
+    '                    <div ng-include="\'headerButtons.html\'" ></div>\n' +
+    '                </div>\n' +
+    '                <div class="navbar-header">\n' +
+    '                    <h3 class="navbar-text">Bootcamp app</h3>\n' +
+    '                </div>\n' +
     '            </div>\n' +
-    '            <div id="navbar" class="navbar-collapse collapse">\n' +
-    '              <form class="navbar-form navbar-right">\n' +
-    '                  <div ng-controller="LoginController as loginCtrl">\n' +
-    '                      <a href="#/" type="button" class="btn btn-primary navbar-btn">New messges</a>\n' +
-    '                      <button id="logout" class="btn btn-primary navbar-btn" ng-click="loginCtrl.logout()"> Logout </button>\n' +
-    '                  </div>\n' +
-    '              </form>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </nav>\n' +
+    '        </nav>\n' +
+    '    </div>\n' +
     '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('partialsModule');
+} catch (e) {
+  module = angular.module('partialsModule', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('headerButtons.html',
+    '<form class="navbar-form navbar-right">\n' +
+    '    <div ng-controller="LoginController as loginCtrl">\n' +
+    '        <a href="#/" type="button" class="btn btn-primary navbar-btn">New messges</a>\n' +
+    '        <button id="logout" class="btn btn-primary navbar-btn" ng-click="loginCtrl.logout()"> Logout </button>\n' +
+    '    </div>\n' +
+    '</form>\n' +
     '');
 }]);
 })();
@@ -84,7 +100,7 @@ module.run(['$templateCache', function($templateCache) {
     '            <div ng-switch-when="true">\n' +
     '                <div ng-include="\'profile.html\'"></div>\n' +
     '            </div>\n' +
-    '            <br/>\n' +
+    '\n' +
     '\n' +
     '        </div>\n' +
     '        <div class="col-md-9">\n' +
@@ -95,7 +111,7 @@ module.run(['$templateCache', function($templateCache) {
     '\n' +
     '            <div ng-switch-when="false">\n' +
     '                <div ng-include="\'stream.html\'"></div>\n' +
-    '                \n' +
+    '                <div ng-include="\'header.html\'"></div>\n' +
     '            </div>\n' +
     '\n' +
     '        </div>\n' +
@@ -175,7 +191,29 @@ module.run(['$templateCache', function($templateCache) {
     '    <input ng-model="regCtrl.user.login" name="login" type="username" class="form-control"\n' +
     '    placeholder="Username" required >\n' +
     '\n' +
-    '    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address">\n' +
+    '    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address"\n' +
+    '      ng-minlength=2 ng-maxlength=20 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" required\n' +
+    '    >\n' +
+    '\n' +
+    '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
+    '        <small class="error" ng-show="registrationForm.email.$error.required">\n' +
+    '               Your email is required.<br/>\n' +
+    '        </small>\n' +
+    '        <small class="error" ng-show="registrationForm.email.$error.minlength">\n' +
+    '                Your email is required to be at least 2 characters<br/>\n' +
+    '        </small>\n' +
+    '        <small class="error" ng-show="registrationForm.email.$error.email">\n' +
+    '               That is not a valid email. Please input a valid email.<br/>\n' +
+    '        </small>\n' +
+    '        <small class="error" ng-show="registrationForm.email.$error.maxlength">\n' +
+    '                Your email cannot be longer than 20 characters<br/>\n' +
+    '        </small>\n' +
+    '        <small class="error" ng-show="registrationForm.email.$error.pattern">\n' +
+    '                The email pattern is invalid. It should be something like mail@example.com.\n' +
+    '        </small>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
     '    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
     '    <!-- <span ng-hide="registrationForm.email.$error.invalid">email not valid</span> -->\n' +
     '\n' +
@@ -296,7 +334,7 @@ module.run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '    </li>\n' +
     '</ul>\n' +
-    '<a href="/tests" target="_blank">test</a>\n' +
+    '<!-- <a href="/tests" target="_blank">test</a> -->\n' +
     '');
 }]);
 })();

@@ -63,7 +63,7 @@ var messageApp = angular.module('messageApp', [
             .when('/', {
                 templateUrl: 'main.html'
             })
-            .when('/resetPassword', {
+            .when('/resetPassword/:token', {
                 templateUrl: 'resetPassword.html'
             })
             .when('/forgotPassword', {
