@@ -7,11 +7,12 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
         function($http, AppConfig, $location, $routeParams) {
 
             var self = this;
+            self.passwordReset = {"token":$location.search().token};
 
             self.resetPassword = function() {
 
                 console.log(self.passwordReset);
-                console.log($routeParams)
+                console.log($location.search().token);
 
                 if (self.passwordReset.password1 === self.passwordReset.password2) {
                     // send the new password and token
