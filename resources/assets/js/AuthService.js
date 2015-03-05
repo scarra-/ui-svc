@@ -47,11 +47,12 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
                     storage.set('profile', JSON.parse(url_base64_decode(encodedProfile)).user);
 
+                    isLoggedIn = true;
                 }, function(errorResponse) {
-                    // need some action if fails 
+                    // need some action if fails
                 });
 
-                isLoggedIn = true;
+
             };
 
             self.logout = function() {
