@@ -13,6 +13,7 @@ require('./controllers/RequestResetController');
 require('./controllers/ProfileController');
 require('./AuthService');
 require('./controllers/ResetPasswordController');
+require('./controllers/ConfirmRegistrationController');
 
 var StreamService = require('./stream-service');
 
@@ -45,7 +46,8 @@ var messageApp = angular.module('messageApp', [
         'messageApp.RequestResetController',
         'messageApp.ProfileController',
         'messageApp.AuthService',
-        'messageApp.ResetPasswordController'
+        'messageApp.ResetPasswordController',
+        'messageApp.ConfirmRegistrationController'
     ])
     .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
         localStorageServiceProvider
@@ -63,11 +65,14 @@ var messageApp = angular.module('messageApp', [
             .when('/', {
                 templateUrl: 'main.html'
             })
-            .when('/resetPassword', {
-                templateUrl: 'resetPassword.html',                
+            .when('/reset', {
+                templateUrl: 'resetPassword.html',
             })
             .when('/forgotPassword', {
                 templateUrl: 'requestReset.html'
+            })
+            .when('/confirm', {
+                templateUrl: 'confirmRegistration.html'
             })
             .otherwise({ redirectTo: '/' });
     }]);

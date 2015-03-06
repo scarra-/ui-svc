@@ -2,25 +2,27 @@
 <!-- REGISTRATION FORM  ~  novalidate disables HTML5 validation-->
 <form class="" name="registrationForm" ng-controller="RegisterController as regCtrl" ng-submit="regCtrl.registerUser()" novalidate>
 
+    <div class="alert alert-success" ng-show = "regCtrl.userRegistered "role="alert">Well done! You managed to register successfuly.</div>
+
     <label ng-show="regCtrl.userError" name="registerError" class="formError">Username is already taken!</label>
     <label ng-show="regCtrl.mailError" name="registerError" class="formError">There is already registered user with this e-mail!</label>
 
-    <input ng-model="regCtrl.user.login" name="login" type="username" class="form-control"
+    <input ng-model="regCtrl.user.login" name="registrationLogin" type="username" class="form-control"
     placeholder="Username" required >
 
-    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address"
-      ng-minlength=6 ng-maxlength=256 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{1,5}$/" required
-    >
+    <input type="email" ng-model="regCtrl.user.email" name="registrationEmail" class="form-control" placeholder="Email address"
+    ng-minlength=6 ng-maxlength=256 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{1,5}$/" required>
 
-    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">
+    <div class="error-container" ng-show="registrationForm.registrationEmail.$dirty && registrationForm.registrationEmail.$invalid">
 
-        <small class="error" ng-show="registrationForm.email.$error.email">
+        <small class="error" ng-show="registrationForm.registrationEmail.$error.email">
                That is not a valid email. Please input a valid email.<br/>
         </small>
-        <small class="error" ng-show="registrationForm.email.$error.maxlength">
+
+        <small class="error" ng-show="registrationForm.registrationEmail.$error.maxlength">
                 Your email cannot be longer than 20 characters<br/>
         </small>
-        <small class="error" ng-show="registrationForm.email.$error.pattern">
+        <small class="error" ng-show="registrationForm.registrationEmail.$error.pattern">
                 The email pattern is invalid. It should be something like mail@example.com.
         </small>
     </div>
@@ -29,7 +31,7 @@
     <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
     <!-- <span ng-hide="registrationForm.email.$error.invalid">email not valid</span> -->
 
-    <input type="password" ng-model="regCtrl.user.password" name="password" class="form-control"
+    <input type="password" ng-model="regCtrl.user.password" name="registrationPassword" class="form-control"
     placeholder="Password" required >
     <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
 

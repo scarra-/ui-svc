@@ -4,9 +4,9 @@ angular.module('messageApp.RequestResetController', ['AppConfig' ])
 
         self.requestReset = function() {
 
-            $location.path( "/#/" );
-            $http.post(AppConfig.userServiceUrl+'/resets', self.reset).then(function(response) {
 
+            $http.post(AppConfig.userServiceUrl+'/resets', self.reset).then(function(response) {
+                $location.path( "/#/" );
                 console.log("password reset success");
 
             }, function(errorResponse) {
