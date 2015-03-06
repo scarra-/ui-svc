@@ -24,7 +24,6 @@ angular.module('messageApp.RegisterController', [])
                     self.userError = false;
                 }
 
-
             });
         };
     }]);
