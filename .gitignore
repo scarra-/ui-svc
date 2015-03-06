@@ -7,4 +7,5 @@
 .idea
 .env
 /public/php/config.php
-/resources/assets/js/partials.js
+resources/assets/js/partials.js
+storage/cache/

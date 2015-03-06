@@ -74,5 +74,8 @@ var messageApp = angular.module('messageApp', [
             .when('/confirm', {
                 templateUrl: 'confirmRegistration.html'
             })
+            .when('/:username', {
+                templateUrl: 'user.html'
+            })
             .otherwise({ redirectTo: '/' });
     }]);
