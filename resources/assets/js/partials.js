@@ -29,6 +29,27 @@ try {
   module = angular.module('partialsModule', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('confirmRegistration.html',
+    '<div class="col-md-12 password-reset-distribution" >\n' +
+    '\n' +
+    '<div ng-controller="ConfirmRegistrationController as confirmRegCtlr">\n' +
+    '    <p>\n' +
+    '        Thank you for confirming your registration\n' +
+    '    </p>\n' +
+    '</div>\n' +
+    '\n' +
+    '</div>\n' +
+    '');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('partialsModule');
+} catch (e) {
+  module = angular.module('partialsModule', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('editprofile.html',
     '<h1>edit profile page</h1>');
 }]);

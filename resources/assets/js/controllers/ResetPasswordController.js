@@ -3,8 +3,7 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
         '$http',
         'AppConfig',
         '$location',
-        '$routeParams',
-        function($http, AppConfig, $location, $routeParams) {
+        function($http, AppConfig, $location) {
 
             var self = this;
             self.passwordReset = {"token" : $location.search().token};
