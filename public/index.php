@@ -20,6 +20,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../resources/views',
 ));
 
+$app['twig']->setCache(__DIR__.'/../storage/cache/');
+
 $app['twig']->addFunction(new Twig_SimpleFunction('elixir', function ($file){
     static $manifest = null;
 
