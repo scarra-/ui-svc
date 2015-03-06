@@ -1,6 +1,8 @@
-
-<!-- REGISTRATION FORM  ~  novalidate disables HTML5 validation-->
-<form class="" name="registrationForm" ng-controller="RegisterController as regCtrl" ng-submit="regCtrl.registerUser()" novalidate>
+<form class=""
+    name="registrationForm"
+    ng-controller="RegisterController as regCtrl"
+    ng-submit="regCtrl.registerUser()"
+    novalidate>
 
     <div class="alert alert-success" ng-show = "regCtrl.userRegistered "role="alert">Well done! You managed to register successfuly.</div>
 
@@ -27,13 +29,12 @@
         </small>
     </div>
 
+    <input type="password"
+           ng-model="regCtrl.user.password"
+           name="registrationPassword"
+           class="form-control"
+           placeholder="Password"
+           required>
 
-    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
-    <!-- <span ng-hide="registrationForm.email.$error.invalid">email not valid</span> -->
-
-    <input type="password" ng-model="regCtrl.user.password" name="registrationPassword" class="form-control"
-    placeholder="Password" required >
-    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
-
-    <button class="btn btn-lg btn-primary btn-block" ng-disabled="registrationForm.$invalid" type="submit">{{ regCtrl.buttonText }}</button>
+    <button class="btn btn-lg btn-primary btn-block" ng-disabled="registrationForm.$invalid || regCtrl.disabled" type="submit">{{ regCtrl.buttonText }}</button>
 </form>

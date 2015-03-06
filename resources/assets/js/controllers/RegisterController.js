@@ -3,8 +3,10 @@ angular.module('messageApp.RegisterController', [])
         var self = this;
 
         self.buttonText = 'Register';
+        self.disabled   = false;
 
         self.registerUser = function() {
+            self.disabled   = true;
             self.buttonText = 'Loading...';
             var user = new UserService(self.user);
 
@@ -15,6 +17,7 @@ angular.module('messageApp.RegisterController', [])
                 self.userError = false;
 
                 self.buttonText = 'Register';
+                self.disabled   = false;
             }, function(failure) {
                 if (typeof failure.data.email != 'undefined') {
                     self.mailError = true;
@@ -30,6 +33,7 @@ angular.module('messageApp.RegisterController', [])
                 }
 
                 self.buttonText = 'Register';
+                self.disabled = false;
             });
         };
     }]);
