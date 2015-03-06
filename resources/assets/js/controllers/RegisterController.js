@@ -2,7 +2,10 @@ angular.module('messageApp.RegisterController', [])
     .controller('RegisterController', ['UserService', function(UserService) {
         var self = this;
 
+        self.buttonText = 'Register';
+
         self.registerUser = function() {
+            self.buttonText = 'Loading...';
             var user = new UserService(self.user);
 
             user.$save(function(success) {
@@ -11,9 +14,8 @@ angular.module('messageApp.RegisterController', [])
                 self.mailError = false;
                 self.userError = false;
 
-
+                self.buttonText = 'Register';
             }, function(failure) {
-
                 if (typeof failure.data.email != 'undefined') {
                     self.mailError = true;
                 }
@@ -27,6 +29,7 @@ angular.module('messageApp.RegisterController', [])
                     self.userError = false;
                 }
 
+                self.buttonText = 'Register';
             });
         };
     }]);

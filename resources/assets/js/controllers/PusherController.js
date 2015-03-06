@@ -2,7 +2,7 @@ angular.module('messageApp.PusherController', [])
     .controller('PusherController', [ 'StreamService','$pusher', '$http', function (StreamService, $pusher, $http) {
         var self = this;
 
-        self.tweets   = StreamService.getMessages();
+        self.tweets   = StreamService.getMessages;
         self.messages = [];
 
         self.myPagingFunction = function() {

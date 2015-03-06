@@ -2,7 +2,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
     .service('StreamService', [ 'AppConfig', '$pusher', function(AppConfig, $pusher) {
         var self = this;
 
-        self.messages = [];
+        messages = [];
         var client        = new Pusher(AppConfig.pusherAppKey);
         var pusher        = $pusher(client);
         var my_channel    = pusher.subscribe('public_channel');
@@ -21,15 +21,15 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
 
         self.getMessages = function() {
-            return self.messages;
+            return messages;
         };
 
         self.addMessage = function(message) {
-            self.messages.unshift(message);
+            messages.unshift(message);
         };
 
         self.clearMessages = function() {
-            self.messages = [];
+            messages = [];
         };
 
     }]);
