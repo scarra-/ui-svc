@@ -267,7 +267,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <form class="" name="resetPasswordForm" ng-controller="ResetPasswordController as resetPassCtrl"\n' +
     '    ng-submit="resetPassCtrl.resetPassword()" novalidate>\n' +
     '\n' +
-    '        <input ng-model="resetPassCtrl.passwordReset.password1" name="password1" type="password" class="form-control"\n' +
+    '        <input ng-model="resetPassCtrl.passwordReset.password" name="password" type="password" class="form-control"\n' +
     '        placeholder="password" required>\n' +
     '\n' +
     '        <input ng-model="resetPassCtrl.passwordReset.password2" name="passsword2" type="password" class="form-control"\n' +

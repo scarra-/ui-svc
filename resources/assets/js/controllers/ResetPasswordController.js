@@ -7,15 +7,16 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
         function($http, AppConfig, $location, $routeParams) {
 
             var self = this;
-            self.passwordReset = {"token":$location.search().token};
+            self.passwordReset = {"token" : $location.search().token};
 
             self.resetPassword = function() {
 
                 console.log(self.passwordReset);
                 console.log($location.search().token);
 
-                if (self.passwordReset.password1 === self.passwordReset.password2) {
+                if (self.passwordReset.password === self.passwordReset.password2) {
                     // send the new password and token
+                    delete self.passwordReset.password2;
 
                     $http.post(AppConfig.userServiceUrl + '/reset', self.passwordReset).then(function(response) {
 
@@ -23,8 +24,9 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
                         console.log("password reset sent");
 
                     }, function(errorResponse) {
-
-                        console.log("password reset failed sending");
+                        // add some error message in HTML
+                        console.log(errorResponse);
+                        console.log("password reset failed");
                     });
                 }
                 else {
