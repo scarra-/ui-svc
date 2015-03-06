@@ -65,7 +65,7 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('header.html',
     '\n' +
     '<div ng-controller="ProfileController as profileCtrl">\n' +
-    '    <div class="jumbotron" ng-switch on="profileCtrl.auth()">\n' +
+    '    <div ng-switch on="profileCtrl.auth()">\n' +
     '        <nav class="navbar navbar-inverse navbar-fixed-top container-padding">\n' +
     '            <div class="container">\n' +
     '                <div ng-switch-when="true">\n' +
@@ -110,32 +110,26 @@ module.run(['$templateCache', function($templateCache) {
   $templateCache.put('main.html',
     '<div ng-controller="MainController as mainCtrl">\n' +
     '    <div class="container jumbotron" ng-switch on="mainCtrl.auth()">\n' +
-    '        <div class="col-md-3" >\n' +
+    '        <div ng-include="\'header.html\'"></div>\n' +
+    '            <div class="col-md-3" >\n' +
+    '                <div ng-switch-when="false">\n' +
+    '                    <div ng-include="\'signin.html\'"></div>\n' +
+    '                    <div ng-include="\'registration.html\'"></div>\n' +
+    '                </div>\n' +
     '\n' +
-    '            <div ng-switch-when="false">\n' +
-    '                <div ng-include="\'signin.html\'"></div>\n' +
-    '                <div ng-include="\'registration.html\'"></div>\n' +
+    '\n' +
+    '                <div ng-switch-when="true">\n' +
+    '                    <div ng-include="\'profile.html\'"></div>\n' +
+    '                </div>\n' +
     '            </div>\n' +
-    '\n' +
-    '\n' +
-    '            <div ng-switch-when="true">\n' +
-    '                <div ng-include="\'profile.html\'"></div>\n' +
+    '            <div class="col-md-9">\n' +
+    '                <div ng-switch-when="true">\n' +
+    '                    <div ng-include="\'msgBox.html\'"></div>\n' +
+    '                </div>\n' +
+    '                    <div ng-switch-when="false">\n' +
+    '                    <div ng-include="\'stream.html\'"></div>\n' +
+    '                </div>\n' +
     '            </div>\n' +
-    '\n' +
-    '\n' +
-    '        </div>\n' +
-    '        <div class="col-md-9">\n' +
-    '            <div ng-switch-when="true">\n' +
-    '                <div ng-include="\'msgBox.html\'"></div>\n' +
-    '                <div ng-include="\'header.html\'"></div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '            <div ng-switch-when="false">\n' +
-    '                <div ng-include="\'stream.html\'"></div>\n' +
-    '                <div ng-include="\'header.html\'"></div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '        </div>\n' +
     '    </div>\n' +
     '</div>\n' +
     '');
@@ -211,22 +205,24 @@ module.run(['$templateCache', function($templateCache) {
     '    <label ng-show="regCtrl.userError" name="registerError" class="formError">Username is already taken!</label>\n' +
     '    <label ng-show="regCtrl.mailError" name="registerError" class="formError">There is already registered user with this e-mail!</label>\n' +
     '\n' +
-    '    <input ng-model="regCtrl.user.login" name="login" type="username" class="form-control"\n' +
+    '    <input ng-model="regCtrl.user.login" name="registrationLogin" type="username" class="form-control"\n' +
     '    placeholder="Username" required >\n' +
     '\n' +
-    '    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address"\n' +
+
+    '    <input type="email" ng-model="regCtrl.user.email" name="registrationEmail" class="form-control" placeholder="Email address"\n' +
     '    ng-minlength=6 ng-maxlength=256 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" required>\n' +
     '\n' +
-    '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
+    '    <div class="error-container" ng-show="registrationForm.registrationEmail.$dirty && registrationForm.registrationEmail.$invalid">\n' +
     '\n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.email">\n' +
+    '        <small class="error" ng-show="registrationForm.registrationEmail.$error.email">\n' +
     '               That is not a valid email. Please input a valid email.<br/>\n' +
     '        </small>\n' +
     '\n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.maxlength">\n' +
+    '        <small class="error" ng-show="registrationForm.registrationEmail.$error.maxlength">\n' +
+
     '                Your email cannot be longer than 20 characters<br/>\n' +
     '        </small>\n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.pattern">\n' +
+    '        <small class="error" ng-show="registrationForm.registrationEmail.$error.pattern">\n' +
     '                The email pattern is invalid. It should be something like mail@example.com.\n' +
     '        </small>\n' +
     '    </div>\n' +
@@ -235,7 +231,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
     '    <!-- <span ng-hide="registrationForm.email.$error.invalid">email not valid</span> -->\n' +
     '\n' +
-    '    <input type="password" ng-model="regCtrl.user.password" name="password" class="form-control"\n' +
+    '    <input type="password" ng-model="regCtrl.user.password" name="registrationPassword" class="form-control"\n' +
     '    placeholder="Password" required >\n' +
     '    <!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
     '\n' +
@@ -314,9 +310,9 @@ module.run(['$templateCache', function($templateCache) {
     '	<form class="" name="loginForm" ng-controller="LoginController as loginCtrl" ng-submit="loginCtrl.login()" novalidate>\n' +
     '		<label ng-show="loginCtrl.loginError()" name="loginError" class="formError">Username or password is incorrect!</label>\n' +
     '\n' +
-    '		<input ng-model="loginCtrl.user.login" name="login" type="username" class="form-control" placeholder="Username" required >\n' +
+    '		<input ng-model="loginCtrl.user.login" name="loginUsername" type="username" class="form-control" placeholder="Username" required >\n' +
     '\n' +
-    '		<input type="password" ng-model="loginCtrl.user.password" name="password" class="form-control" placeholder="Password" required >\n' +
+    '		<input type="password" ng-model="loginCtrl.user.password" name="loginPassword" class="form-control" placeholder="Password" required >\n' +
     '		<!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->\n' +
     '\n' +
     '		<button class="btn btn-lg btn-primary btn-block" ng-disabled="loginForm.$invalid" type="submit">Login</button>\n' +
