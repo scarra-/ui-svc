@@ -18,6 +18,7 @@ $s3Bucket    = getenv('S3_BUCKET');
 
 $result = $client->registerApplicationRevision([
     'applicationName' => $repoName,
+    'description' => "Build #{$buildnumber}",
     'revision' => [
         'revisionType' => 'S3',
         's3Location' => [
