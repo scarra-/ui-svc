@@ -3,16 +3,27 @@ angular.module('messageApp.PusherController', [ 'AppConfig'])
         'AppConfig',
         'MessageStreamService',
         '$pusher',
-        function (AppConfig, MessageStreamService, $pusher) {
+        '$http',
+        function (AppConfig, MessageStreamService, $pusher, $http) {
             var self = this;
 
+            self.messages = [];
             self.tweets = MessageStreamService.getMessages;
+
+            self.myPagingFunction = function() {
+                $http.get('/sample.json').then(function(success) {
+                    angular.forEach(success.data, function(message) {
+                      self.messages.push(message);
+                    });
+                }, function (failure) {
+
+                });
+                // self.messages.push(last + 1);
+            };
 
             var client     = new Pusher(AppConfig.pusherAppKey);
             var pusher     = $pusher(client);
             var my_channel = pusher.subscribe('public_channel');
-
-            MessageStreamService.addMessage({name: "Karlis", message: "hello! my name is Karlis", time: "Monday 2nd of March 2015 07:21:53 PM"});
 
             my_channel.bind('newTweet', function (data) {
                 // self.tweets.unshift(data);

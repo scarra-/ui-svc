@@ -1,17 +1,38 @@
-<ul ng-controller="PusherController as pusherCtrl" id="activity_stream_example" class="activity-stream no-actions animate-repeat">
-    <li class="activity test-event" ng-repeat="tweet in pusherCtrl.tweets()">
-        <div class="stream-item-content">
-            <div class="image"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
-                    width="48" height="48"></div>
-            <div class="content">
-                <!-- jāuztaisa links uz cilvēka lapu, kas tweeto-->
-                <div class="activity-row">
-                    <span class="user-name"><a href=""> <em>{{ tweet.name }}</em> </a> </span>
-                    <div class="text">{{ tweet.message }}</div>
-                    <div class="activity-row"><span class="time">{{ tweet.time }}</span></div>
+<div ng-controller="PusherController as pusherCtrl" >
+    <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
+        <li class="activity test-event" ng-repeat="tweet in pusherCtrl.tweets()">
+            <div class="stream-item-content">
+                <div class="image"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
+                        width="48" height="48"></div>
+                <div class="content">
+                    <!-- jāuztaisa links uz cilvēka lapu, kas tweeto-->
+                    <div class="activity-row">
+                        <span class="user-name"><a href=""> <em>{{ tweet.name }}</em> </a> </span>
+                        <div class="text">{{ tweet.message }}</div>
+                        <div class="activity-row"><span class="time">{{ tweet.time }}</span></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </li>
-</ul>
-<!-- <a href="/tests" target="_blank">test</a> -->
+        </li>
+    </ul>
+    <div infinite-scroll="pusherCtrl.myPagingFunction()" infinite-scroll-distance="2">
+        <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
+            <li class="activity test-event" ng-repeat="message in pusherCtrl.messages">
+                <div class="stream-item-content">
+                    <div class="image">
+                        <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
+                             width="48"
+                             height="48"/>
+                    </div>
+                    <div class="content">
+                        <div class="activity-row">
+                            <span class="user-name"><a href=""> <em>{{ message.name }}</em> </a> </span>
+                            <div class="text">{{ message.message }}</div>
+                            <div class="activity-row"><span class="time">{{ message.time }}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

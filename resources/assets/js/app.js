@@ -1,6 +1,7 @@
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
+require('ng-infinite-scroll');
 require('pusher-angular');
 require('angular-local-storage');
 require('./partials');
@@ -34,6 +35,7 @@ var AppConfig = angular.module('AppConfig', [])
 var messageApp = angular.module('messageApp', [
         'ngRoute',
         'ngResource',
+        'infinite-scroll',
         'pusher-angular',
         'LocalStorageModule',
         'AppConfig',
