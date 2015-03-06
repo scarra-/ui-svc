@@ -208,7 +208,6 @@ module.run(['$templateCache', function($templateCache) {
     '    <input ng-model="regCtrl.user.login" name="registrationLogin" type="username" class="form-control"\n' +
     '    placeholder="Username" required >\n' +
     '\n' +
-
     '    <input type="email" ng-model="regCtrl.user.email" name="registrationEmail" class="form-control" placeholder="Email address"\n' +
     '    ng-minlength=6 ng-maxlength=256 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" required>\n' +
     '\n' +
@@ -219,7 +218,6 @@ module.run(['$templateCache', function($templateCache) {
     '        </small>\n' +
     '\n' +
     '        <small class="error" ng-show="registrationForm.registrationEmail.$error.maxlength">\n' +
-
     '                Your email cannot be longer than 20 characters<br/>\n' +
     '        </small>\n' +
     '        <small class="error" ng-show="registrationForm.registrationEmail.$error.pattern">\n' +
