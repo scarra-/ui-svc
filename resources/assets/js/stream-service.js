@@ -6,7 +6,7 @@ module.exports = function () {
     };
 
     this.addMessage = function(message) {
-        messages.push(message);
+        messages.unshift(message);
     };
 
     this.clearMessages = function() {

@@ -19,9 +19,9 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
     .service('AuthService', [
         '$http',
         'AppConfig',
-        'MessageStreamService',
+        'StreamService',
         'localStorageService',
-        function($http, AppConfig, MessageStreamService, storage) {
+        function($http, AppConfig, StreamService, storage) {
             var self = this;
             var isLoggedIn = false;
 
@@ -45,7 +45,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
             self.login = function(userObject) {
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
-                    MessageStreamService.clearMessages();
+                    StreamService.clearMessages();
                     storage.set('token', response.data.token);
                     var encodedProfile = response.data.token.split('.')[1];
 
