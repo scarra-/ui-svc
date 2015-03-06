@@ -8,9 +8,12 @@ angular.module('messageApp.RegisterController', [])
             user.$save(function(success) {
                 self.user = {};
                 self.userRegistered = true;
+                self.mailError = false;
+                self.userError = false;
+
 
             }, function(failure) {
-            
+
                 if (typeof failure.data.email != 'undefined') {
                     self.mailError = true;
                 }

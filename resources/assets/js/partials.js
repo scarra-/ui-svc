@@ -197,13 +197,17 @@ module.run(['$templateCache', function($templateCache) {
     '      ng-minlength=2 ng-maxlength=20 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" require>\n' +
     '\n' +
     '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.required">\n' +
-    '               Your email is required.<br/>\n' +
-    '        </small>\n' +
+    '      \n' +
     '        <small class="error" ng-show="registrationForm.email.$error.minlength">\n' +
     '                Your email is required to be at least 2 characters<br/>\n' +
     '        </small>\n' +
+<<<<<<< HEAD
     '\n' +
+=======
+    '        <small class="error" ng-show="registrationForm.email.$error.email">\n' +
+    '               That is not a valid email. Please input a valid email.<br/>\n' +
+    '        </small>\n' +
+>>>>>>> 2a9256ffc2cca6e53c301f3c69066c07ca3a9353
     '        <small class="error" ng-show="registrationForm.email.$error.maxlength">\n' +
     '                Your email cannot be longer than 20 characters<br/>\n' +
     '        </small>\n' +
@@ -268,7 +272,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <form class="" name="resetPasswordForm" ng-controller="ResetPasswordController as resetPassCtrl"\n' +
     '    ng-submit="resetPassCtrl.resetPassword()" novalidate>\n' +
     '\n' +
-    '        <input ng-model="resetPassCtrl.passwordReset.password1" name="password1" type="password" class="form-control"\n' +
+    '        <input ng-model="resetPassCtrl.passwordReset.password" name="password" type="password" class="form-control"\n' +
     '        placeholder="password" required>\n' +
     '\n' +
     '        <input ng-model="resetPassCtrl.passwordReset.password2" name="passsword2" type="password" class="form-control"\n' +

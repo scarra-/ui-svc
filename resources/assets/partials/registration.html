@@ -14,11 +14,15 @@
       ng-minlength=2 ng-maxlength=20 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{1,5}$/" require>
 
     <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">
-        <small class="error" ng-show="registrationForm.email.$error.required">
-               Your email is required.<br/>
-        </small>
+
         <small class="error" ng-show="registrationForm.email.$error.minlength">
                 Your email is required to be at least 2 characters<br/>
+        </small>
+
+
+
+        <small class="error" ng-show="registrationForm.email.$error.email">
+               That is not a valid email. Please input a valid email.<br/>
         </small>
 
         <small class="error" ng-show="registrationForm.email.$error.maxlength">
