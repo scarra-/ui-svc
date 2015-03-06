@@ -15,8 +15,9 @@ require('./controllers/ProfileController');
 require('./AuthService');
 require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
+require('./StreamService');
 
-var StreamService = require('./stream-service');
+// var StreamService = require('./stream-service');
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
@@ -49,7 +50,8 @@ var messageApp = angular.module('messageApp', [
         'messageApp.ProfileController',
         'messageApp.AuthService',
         'messageApp.ResetPasswordController',
-        'messageApp.ConfirmRegistrationController'
+        'messageApp.ConfirmRegistrationController',
+        'messageApp.StreamService'
     ])
     .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
         localStorageServiceProvider
@@ -61,7 +63,7 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
-    .service('MessageStreamService', [StreamService])
+    // .service('MessageStreamService', [StreamService])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
