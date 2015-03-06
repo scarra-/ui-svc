@@ -185,6 +185,8 @@ module.run(['$templateCache', function($templateCache) {
     '<!-- REGISTRATION FORM  ~  novalidate disables HTML5 validation-->\n' +
     '<form class="" name="registrationForm" ng-controller="RegisterController as regCtrl" ng-submit="regCtrl.registerUser()" novalidate>\n' +
     '\n' +
+    '    <div class="alert alert-success" ng-show = "regCtrl.userRegistered "role="alert">Well done! You managed to register successfuly.</div>\n' +
+    '\n' +
     '    <label ng-show="regCtrl.userError" name="registerError" class="formError">Username is already taken!</label>\n' +
     '    <label ng-show="regCtrl.mailError" name="registerError" class="formError">There is already registered user with this e-mail!</label>\n' +
     '\n' +
@@ -192,8 +194,7 @@ module.run(['$templateCache', function($templateCache) {
     '    placeholder="Username" required >\n' +
     '\n' +
     '    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address"\n' +
-    '      ng-minlength=2 ng-maxlength=20 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" required\n' +
-    '    >\n' +
+    '      ng-minlength=2 ng-maxlength=20 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" require>\n' +
     '\n' +
     '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
     '        <small class="error" ng-show="registrationForm.email.$error.required">\n' +
@@ -202,7 +203,7 @@ module.run(['$templateCache', function($templateCache) {
     '        <small class="error" ng-show="registrationForm.email.$error.minlength">\n' +
     '                Your email is required to be at least 2 characters<br/>\n' +
     '        </small>\n' +
-    '        \n' +
+    '\n' +
     '        <small class="error" ng-show="registrationForm.email.$error.maxlength">\n' +
     '                Your email cannot be longer than 20 characters<br/>\n' +
     '        </small>\n' +
