@@ -3,16 +3,19 @@ angular.module('messageApp.ConfirmRegistrationController', ['AppConfig' ])
         '$http',
         'AppConfig',
         '$location',
-        function($http, AppConfig, $location) {
+        '$scope',
+        function($http, AppConfig, $location, $scope) {
 
             var self = this;
+
             self.confirmObject = {"token" : $location.search().token};
 
-            self.conirmRegistration = function() {
+            self.confirmRegistration = function() {
+                console.log("test");
 
-                $http.post(AppConfig.userServiceUrl + '/reset', self.confirmObject).then(function(response) {
+                $http.post(AppConfig.userServiceUrl + '/confirm', self.confirmObject).then(function(response) {
 
-                    $location.path( "/#/" );
+                    // $location.path( "/#/" );
                     console.log("confirmation sent");
 
                 }, function(errorResponse) {
