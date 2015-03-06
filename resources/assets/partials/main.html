@@ -1,4 +1,4 @@
-<div ng-controller="MainController as mainCtrl">
+<div ng-init="mainCtrl.init()" ng-controller="MainController as mainCtrl">
     <div class="container jumbotron" ng-switch on="mainCtrl.auth()">
         <div ng-include="'header.html'"></div>
             <div class="col-md-3" >
@@ -16,8 +16,9 @@
                 <div ng-switch-when="true">
                     <div ng-include="'msgBox.html'"></div>
                 </div>
-                    <div ng-switch-when="false">
-                    <div ng-include="'stream.html'"></div>
+                <div ng-include="'stream.html'"></div>
+                <div ng-switch-when="false">
+
                 </div>
             </div>
     </div>

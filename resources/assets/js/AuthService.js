@@ -27,6 +27,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
             self.user = {};
 
+
             self.showError = function() {
                 return self.loginError;
             }
@@ -37,15 +38,27 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
             };
 
             self.isLoggedIn = function() {
-                if (window.localStorage.getItem('bootcamp.token') !== null) {
-                    isLoggedIn = true;
-                }
                 return isLoggedIn;
             };
 
+            //
+            self.authenticate = function() {
+                var profile = storage.get('profile');
+                self.setUser(profile);
+
+                StreamService.clearMessages();
+                StreamService.switchChannel(profile.login);
+
+                console.log("profile");
+                // console.log(storage.get('profile'))
+                isLoggedIn = true;
+            };
+
             self.login = function(userObject) {
+
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
-                    StreamService.clearMessages();
+                    // StreamService.switchChannel(userObject.login);
+
                     storage.set('token', response.data.token);
                     var encodedProfile = response.data.token.split('.')[1];
 
@@ -55,13 +68,19 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     isLoggedIn = true;
                 }, function(errorResponse) {
                     // need some action if fails
-                    console.log("finished");
+                    console.log("login failed");
                     self.loginError = true;
                 });
             };
 
             self.logout = function() {
                 storage.remove('token');
+                storage.remove('profile');
+                console.log("logging out");
+                StreamService.disconnectFromChannel();
+
+                StreamService.switchChannel("public_channel");
+                // maybe need to disconnect from pusher channel
                 isLoggedIn = false;
             };
         }]);

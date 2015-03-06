@@ -5,20 +5,38 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         messages = [];
         var client        = new Pusher(AppConfig.pusherAppKey);
         var pusher        = $pusher(client);
-        var my_channel    = pusher.subscribe('public_channel');
-
-        // my_channel.bind('message', function (data) {
-        //
-        //     self.addMessage(data);
-        //     // sample = ({name: "Karlis", message: "hello! my name is Karlis", time: "Monday 2nd of March 2015 07:21:53 PM"});
-        //     // self.addMessage(sample);
-        //     console.log("loaded message");
-        //
-        // });
+        var currentChannel = "";
 
         // just a test message
         // self.addMessage({name: "Karlis", message: "hello! my name is Karlis", time: "Monday 2nd of March 2015 07:21:53 PM"});
 
+        self.switchChannel = function(channelName) {
+            console.log("called switching channel");
+
+            console.log("current channel is " + currentChannel);
+            if (currentChannel !== channelName) {
+
+                if (pusher.connection.state === "connected") {
+                    console.log("disconnecting from pusher");
+                    pusher.disconnect();
+                }
+
+                console.log("switching channel to " channelName);
+
+                self.clearMessages();
+                currentChannel = channelName;
+                my_channel = pusher.subscribe(channelName);
+
+                my_channel.bind('message', function (data) {
+                    self.addMessage(data);
+                    console.log("loaded message");
+                });
+            }
+        }
+
+        self.disconnectFromChannel = function() {
+            pusher.disconnect();
+        }
 
         self.getMessages = function() {
             return messages;
