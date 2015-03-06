@@ -194,20 +194,14 @@ module.run(['$templateCache', function($templateCache) {
     '    placeholder="Username" required >\n' +
     '\n' +
     '    <input type="email" ng-model="regCtrl.user.email" name="email" class="form-control" placeholder="Email address"\n' +
-    '      ng-minlength=2 ng-maxlength=20 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" require>\n' +
+    '    ng-minlength=6 ng-maxlength=256 ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\\.[a-z.]{1,5}$/" required>\n' +
     '\n' +
     '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
-    '      \n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.minlength">\n' +
-    '                Your email is required to be at least 2 characters<br/>\n' +
-    '        </small>\n' +
-<<<<<<< HEAD
     '\n' +
-=======
     '        <small class="error" ng-show="registrationForm.email.$error.email">\n' +
     '               That is not a valid email. Please input a valid email.<br/>\n' +
     '        </small>\n' +
->>>>>>> 2a9256ffc2cca6e53c301f3c69066c07ca3a9353
+    '\n' +
     '        <small class="error" ng-show="registrationForm.email.$error.maxlength">\n' +
     '                Your email cannot be longer than 20 characters<br/>\n' +
     '        </small>\n' +
