@@ -196,13 +196,13 @@ module.run(['$templateCache', function($templateCache) {
     '    >\n' +
     '\n' +
     '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.required">\n' +
-    '               Your email is required.<br/>\n' +
-    '        </small>\n' +
+    '      \n' +
     '        <small class="error" ng-show="registrationForm.email.$error.minlength">\n' +
     '                Your email is required to be at least 2 characters<br/>\n' +
     '        </small>\n' +
-    '        \n' +
+    '        <small class="error" ng-show="registrationForm.email.$error.email">\n' +
+    '               That is not a valid email. Please input a valid email.<br/>\n' +
+    '        </small>\n' +
     '        <small class="error" ng-show="registrationForm.email.$error.maxlength">\n' +
     '                Your email cannot be longer than 20 characters<br/>\n' +
     '        </small>\n' +
