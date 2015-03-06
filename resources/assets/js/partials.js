@@ -196,9 +196,7 @@ module.run(['$templateCache', function($templateCache) {
     '    >\n' +
     '\n' +
     '    <div class="error-container" ng-show="registrationForm.email.$dirty && registrationForm.email.$invalid">\n' +
-    '        <small class="error" ng-show="registrationForm.email.$error.required">\n' +
-    '               Your email is required.<br/>\n' +
-    '        </small>\n' +
+    '      \n' +
     '        <small class="error" ng-show="registrationForm.email.$error.minlength">\n' +
     '                Your email is required to be at least 2 characters<br/>\n' +
     '        </small>\n' +
@@ -269,7 +267,7 @@ module.run(['$templateCache', function($templateCache) {
     '    <form class="" name="resetPasswordForm" ng-controller="ResetPasswordController as resetPassCtrl"\n' +
     '    ng-submit="resetPassCtrl.resetPassword()" novalidate>\n' +
     '\n' +
-    '        <input ng-model="resetPassCtrl.passwordReset.password1" name="password1" type="password" class="form-control"\n' +
+    '        <input ng-model="resetPassCtrl.passwordReset.password" name="password" type="password" class="form-control"\n' +
     '        placeholder="password" required>\n' +
     '\n' +
     '        <input ng-model="resetPassCtrl.passwordReset.password2" name="passsword2" type="password" class="form-control"\n' +
