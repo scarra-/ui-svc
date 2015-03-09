@@ -1,15 +1,9 @@
-var $ = require('jquery');
-window.jQuery = $;
-window.$ = $;
-
-
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
 require('ng-infinite-scroll');
 require('pusher-angular');
 require('angular-local-storage');
-require('bootstrap/dist/js/bootstrap.js');
 
 require('./partials');
 require('./controllers/LoginController');
