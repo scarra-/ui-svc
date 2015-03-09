@@ -8,13 +8,7 @@ angular.module('messageApp.ConfirmRegistrationController', ['AppConfig' ])
 
             var self = this;
 
-            self.confirmObject = {"token" : $location.search().token};
-
-            self.loadHomepage = function() {
-                console.log("button pressed");
-                $location.$$search = {};
-                $location.path("/#/");
-            };
+            self.confirmObject = {"token" : $location.search().token };
 
             self.confirmRegistration = function() {
 
