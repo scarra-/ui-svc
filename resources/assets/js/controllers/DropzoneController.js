@@ -7,6 +7,7 @@ angular.module('messageApp.DropzoneController',[])
         },
         'eventHandlers': {
           'sending': function (file, xhr, formData) {
+              
           },
           'success': function (file, response) {
           }

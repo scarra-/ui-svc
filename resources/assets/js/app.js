@@ -22,6 +22,9 @@ require('./controllers/DropzoneController');
 
 var Dropzone = require("dropzone");
 
+require('./controllers/UserModalController');
+
+
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
     var config = {};
@@ -56,7 +59,9 @@ var messageApp = angular.module('messageApp', [
         'messageApp.ConfirmRegistrationController',
         'messageApp.StreamService',
         'messageApp.InitService',
-        'messageApp.DropzoneController'
+        'messageApp.DropzoneController',
+        'messageApp.UserModalController'
+
     ])
     .config(['localStorageServiceProvider' , function (localStorageServiceProvider) {
 
@@ -69,20 +74,10 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
-    .controller('UserModalController', ['$http', '$routeParams', 'AuthService', 'UserService', 'AppConfig', function($http, $routeParams, AuthService, UserService, AppConfig) {
-        var self = this;
-
-        self.auth = AuthService.isLoggedIn;
-        self.user = UserService.get({id:$routeParams.username}, function() {});
-
-        self.followUser = function () {
-            console.log('follow user: ' + self.user.login);
-            $http.post(AppConfig.subscriptionServiceUrl+'/subscribe').then(function(success) {
-                console.log(success.data);
-            }, function(failure) {
-                console.log(failure.data);
-            });
-        };
+    .factory('SubscriptionService', ['$resource', 'AppConfig', function($resource, AppConfig) {
+        return $resource(AppConfig.subscriptionServiceUrl + '/subscriptions/:id', {id:'@id'}, {
+            update: {method: 'PUT'}
+        });
     }])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
@@ -108,7 +103,7 @@ var messageApp = angular.module('messageApp', [
         var dropzone;
         var split = attrs.dropzone.split('.');
         var config = scope[split[0]][split[1]];
-        
+
         // create a Dropzone for the element with the given options
         dropzone = new Dropzone(element[0], config.options);
 
