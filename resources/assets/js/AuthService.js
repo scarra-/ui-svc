@@ -26,19 +26,19 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
             var isLoggedIn = false;
 
             self.user = {};
-            self.buttonText='Login';
+            self.buttonText = 'Login';
 
             self.showError = function() {
                 return self.loginError;
-            }
+            };
 
             self.showButtonName = function(){
-              return self.buttonText;
-            }
+                return self.buttonText;
+            };
 
-            self.changeButtonState = function(){
-              return self.disabled;
-            }
+            self.changeButtonState = function() {
+                return self.disabled;
+            };
 
             // used for setting user from LoginController
             self.setUser = function(user) {
@@ -53,10 +53,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
             self.authenticate = function() {
                 console.log("called authenticate function");
 
-                if (window.localStorage.getItem('bootcamp.token') !== null) {
-
-                    var profile = storage.get('profile');
-                    self.setUser(profile);
 
                 if (window.localStorage.getItem('bootcamp.token') !== null) {
 
