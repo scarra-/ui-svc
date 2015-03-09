@@ -18,7 +18,9 @@ require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
 require('./StreamService');
 require('./InitService');
+require('./controllers/DropzoneController');
 
+var Dropzone = require("dropzone");
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
@@ -53,7 +55,8 @@ var messageApp = angular.module('messageApp', [
         'messageApp.ResetPasswordController',
         'messageApp.ConfirmRegistrationController',
         'messageApp.StreamService',
-        'messageApp.InitService'
+        'messageApp.InitService',
+        'messageApp.DropzoneController'
     ])
     .config(['localStorageServiceProvider' , function (localStorageServiceProvider) {
 
@@ -99,4 +102,19 @@ var messageApp = angular.module('messageApp', [
                 templateUrl: 'main.html'
             })
             .otherwise({ redirectTo: '/' });
-    }]);
+    }])
+    .directive('dropzone', function () {
+      return function (scope, element, attrs) {
+        var dropzone;
+        var split = attrs.dropzone.split('.');
+        var config = scope[split[0]][split[1]];
+        
+        // create a Dropzone for the element with the given options
+        dropzone = new Dropzone(element[0], config.options);
+
+        // bind the given event handlers
+        angular.forEach(config.eventHandlers, function (handler, event) {
+          dropzone.on(event, handler);
+        });
+      };
+    });
