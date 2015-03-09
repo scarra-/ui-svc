@@ -18,7 +18,7 @@ require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
 require('./StreamService');
 require('./InitService');
-
+require('./controllers/UserModalController');
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
@@ -53,7 +53,8 @@ var messageApp = angular.module('messageApp', [
         'messageApp.ResetPasswordController',
         'messageApp.ConfirmRegistrationController',
         'messageApp.StreamService',
-        'messageApp.InitService'
+        'messageApp.InitService',
+        'messageApp.UserModalController'
     ])
     .config(['localStorageServiceProvider' , function (localStorageServiceProvider) {
 
@@ -66,20 +67,10 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
-    .controller('UserModalController', ['$http', '$routeParams', 'AuthService', 'UserService', 'AppConfig', function($http, $routeParams, AuthService, UserService, AppConfig) {
-        var self = this;
-
-        self.auth = AuthService.isLoggedIn;
-        self.user = UserService.get({id:$routeParams.username}, function() {});
-
-        self.followUser = function () {
-            console.log('follow user: ' + self.user.login);
-            $http.post(AppConfig.subscriptionServiceUrl+'/subscribe').then(function(success) {
-                console.log(success.data);
-            }, function(failure) {
-                console.log(failure.data);
-            });
-        };
+    .factory('SubscriptionService', ['$resource', 'AppConfig', function($resource, AppConfig) {
+        return $resource(AppConfig.subscriptionServiceUrl + '/subscriptions/:id', {id:'@id'}, {
+            update: {method: 'PUT'}
+        });
     }])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
