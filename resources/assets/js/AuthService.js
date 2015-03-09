@@ -28,7 +28,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
             self.user = {};
             self.buttonText='Login';
 
-
             self.showError = function() {
                 return self.loginError;
             }
@@ -50,17 +49,24 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 return isLoggedIn;
             };
 
-            //
+            // seems this function is not getting called from Main Ctrl
             self.authenticate = function() {
-                var profile = storage.get('profile');
-                self.setUser(profile);
+                console.log("called authenticate function");
 
-                StreamService.clearMessages();
-                StreamService.switchChannel(profile.login);
+                if (window.localStorage.getItem('bootcamp.token') !== null) {
 
-                console.log("profile");
-                // console.log(storage.get('profile'))
-                isLoggedIn = true;
+                    var profile = storage.get('profile');
+                    self.setUser(profile);
+
+                    StreamService.clearMessages();
+                    StreamService.switchChannel(profile.login);
+
+                    isLoggedIn = true;
+                }
+                else {
+                    StreamService.switchChannel("public_channel");
+                }
+
             };
 
             self.login = function(userObject) {
@@ -69,7 +75,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 self.buttonText = 'Loading...';
 
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
-                    // StreamService.switchChannel(userObject.login);
+                    StreamService.switchChannel(userObject.login);
 
                     storage.set('token', response.data.token);
                     var encodedProfile = response.data.token.split('.')[1];
@@ -94,7 +100,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 storage.remove('token');
                 storage.remove('profile');
                 console.log("logging out");
-                StreamService.disconnectFromChannel();
 
                 StreamService.switchChannel("public_channel");
                 // maybe need to disconnect from pusher channel

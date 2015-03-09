@@ -4,6 +4,7 @@ require('angular-route/angular-route.min');
 require('ng-infinite-scroll');
 require('pusher-angular');
 require('angular-local-storage');
+
 require('./partials');
 require('./controllers/LoginController');
 require('./controllers/RegisterController');
@@ -16,8 +17,8 @@ require('./AuthService');
 require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
 require('./StreamService');
+require('./InitService');
 
-// var StreamService = require('./stream-service');
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
@@ -51,9 +52,11 @@ var messageApp = angular.module('messageApp', [
         'messageApp.AuthService',
         'messageApp.ResetPasswordController',
         'messageApp.ConfirmRegistrationController',
-        'messageApp.StreamService'
+        'messageApp.StreamService',
+        'messageApp.InitService'
     ])
-    .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+    .config(['localStorageServiceProvider' , function (localStorageServiceProvider) {
+
         localStorageServiceProvider
             .setPrefix('bootcamp')
             .setNotify(true, true);
@@ -63,7 +66,12 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
-    // .service('MessageStreamService', [StreamService])
+    .controller('UserModalController', ['$routeParams', 'AuthService', function($routeParams, AuthService) {
+        var self = this;
+
+        self.auth     = AuthService.isLoggedIn;
+        self.userName = $routeParams.username;
+    }])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -79,7 +87,7 @@ var messageApp = angular.module('messageApp', [
                 templateUrl: 'confirmRegistration.html'
             })
             .when('/:username', {
-                templateUrl: 'user.html'
+                templateUrl: 'main.html'
             })
             .otherwise({ redirectTo: '/' });
     }]);

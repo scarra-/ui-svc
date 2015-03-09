@@ -1,12 +1,12 @@
 angular.module('messageApp.MainController', [])
-    .controller('MainController', ['AuthService', function(AuthService) {
+    .controller('MainController', ['AuthService', 'InitService', '$routeParams', function(AuthService, InitService, $routeParams) {
         var self = this;
         self.auth = AuthService.isLoggedIn;
-
-        self.init = function() {
-            if (window.localStorage.getItem('bootcamp.token') !== null) {
-                // NOT SURE IF IT SHOULD BE HERE
-                AuthService.authenticate();
+        self.showUserModal = function() {
+            if ($routeParams.username) {
+                return true;
             }
-        }
+            return false;
+        };;
+
     }]);
