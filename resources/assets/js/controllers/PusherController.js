@@ -4,9 +4,9 @@ angular.module('messageApp.PusherController', [])
 
         self.tweets   = StreamService.getMessages;
         self.messages = [];
-        console.log("changing controller");
+
         // NOT SURE IF IT SHOULD BE HERE
-        StreamService.switchChannel("public_channel");
+        // StreamService.switchChannel("public_channel");
 
         self.myPagingFunction = function() {
             $http.get('/sample.json').then(function(success) {
