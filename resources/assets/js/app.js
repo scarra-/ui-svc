@@ -67,6 +67,11 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
+    .factory('SubscriptionService', ['$resource', 'AppConfig', function($resource, AppConfig) {
+        return $resource(AppConfig.subscriptionServiceUrl + '/subscriptions/:id', {id:'@id'}, {
+            update: {method: 'PUT'}
+        });
+    }])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
