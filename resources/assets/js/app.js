@@ -1,9 +1,16 @@
+var $ = require('jquery');
+window.jQuery = $;
+window.$ = $;
+
+
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
 require('ng-infinite-scroll');
 require('pusher-angular');
 require('angular-local-storage');
+require('bootstrap/dist/js/bootstrap.js');
+
 require('./partials');
 require('./controllers/LoginController');
 require('./controllers/RegisterController');
@@ -65,6 +72,12 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
+    .controller('UserModalController', ['$routeParams', 'AuthService', function($routeParams, AuthService) {
+        var self = this;
+
+        self.auth     = AuthService.isLoggedIn;
+        self.userName = $routeParams.username;
+    }])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/', {
@@ -80,7 +93,7 @@ var messageApp = angular.module('messageApp', [
                 templateUrl: 'confirmRegistration.html'
             })
             .when('/:username', {
-                templateUrl: 'user.html'
+                templateUrl: 'main.html'
             })
             .otherwise({ redirectTo: '/' });
     }]);

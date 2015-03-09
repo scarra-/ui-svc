@@ -7,7 +7,9 @@
                 <div class="content">
                     <!-- jāuztaisa links uz cilvēka lapu, kas tweeto-->
                     <div class="activity-row">
-                        <span class="user-name"><a href=""> <em>{{ tweet.name }}</em> </a> </span>
+                        <span class="user-name">
+                            <a ng-href="#/{{ tweet.name }}">{{ tweet.name }}</a>
+                        </span>
                         <div class="text">{{ tweet.message }}</div>
                         <div class="activity-row"><span class="time">{{ tweet.time }}</span></div>
                     </div>
@@ -26,7 +28,9 @@
                     </div>
                     <div class="content">
                         <div class="activity-row">
-                            <span class="user-name"><a href=""> <em>{{ message.name }}</em> </a> </span>
+                            <span class="user-name">
+                                <a ng-href="#/{{ message.name }}">{{ message.name }}</a>
+                            </span>
                             <div class="text">{{ message.message }}</div>
                             <div class="activity-row"><span class="time">{{ message.time }}</span></div>
                         </div>
