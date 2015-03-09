@@ -6,9 +6,14 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
         function($http, AppConfig, $location) {
 
             var self = this;
+
             self.passwordReset = {"token" : $location.search().token};
+            self.buttonText = 'Reset Password';
+            self.disabled   = false;
 
             self.resetPassword = function() {
+                self.disabled   = true;
+                self.buttonText = 'Loading...';
 
                 console.log(self.passwordReset);
                 console.log($location.search().token);
@@ -26,11 +31,16 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
                         // add some error message in HTML
                         console.log(errorResponse);
                         console.log("password reset failed");
+                        self.buttonText = 'Reset Password';
+                        self.disabled   = false;
                     });
                 }
                 else {
                     console.log("passwords must match");
+                    self.buttonText = 'Reset Password';
+                    self.disabled   = false;
                 }
+
             };
 
     }]);
