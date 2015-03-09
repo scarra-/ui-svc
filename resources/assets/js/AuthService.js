@@ -58,6 +58,11 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     var profile = storage.get('profile');
                     self.setUser(profile);
 
+                if (window.localStorage.getItem('bootcamp.token') !== null) {
+
+                    var profile = storage.get('profile');
+                    self.setUser(profile);
+
                     StreamService.clearMessages();
                     StreamService.switchChannel(profile.login);
 
