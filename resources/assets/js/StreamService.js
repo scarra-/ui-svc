@@ -21,7 +21,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                     pusher.disconnect();
                 }
 
-                console.log("switching channel to " channelName);
+                console.log("switching channel to " + channelName);
 
                 self.clearMessages();
                 currentChannel = channelName;
