@@ -51,8 +51,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
             // seems this function is not getting called from Main Ctrl
             self.authenticate = function() {
-                console.log("called authenticate function");
-
 
                 if (window.localStorage.getItem('bootcamp.token') !== null) {
 
