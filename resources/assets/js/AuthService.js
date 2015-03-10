@@ -40,6 +40,10 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 return self.disabled;
             };
 
+            self.internalError = function(){
+                return self.internalError;
+            }
+
             // used for setting user from LoginController
             self.setUser = function(user) {
                 self.user = user;
@@ -51,8 +55,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
             // seems this function is not getting called from Main Ctrl
             self.authenticate = function() {
-                console.log("called authenticate function");
-
 
                 if (window.localStorage.getItem('bootcamp.token') !== null) {
 
@@ -74,6 +76,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
                 self.disabled   = true;
                 self.buttonText = 'Loading...';
+                self.internalError = false;
 
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
                     StreamService.switchChannel(userObject.login);
@@ -90,10 +93,19 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     self.buttonText = 'Login';
                 }, function(errorResponse) {
                     // need some action if fails
+                    console.log(errorResponse);
+                    if(errorResponse.status=='0'){
+                        self.buttonText = 'Login';
+                        self.disabled   = false;
+                        self.internalError = true;
+                    }
+                    else{
                     console.log("login failed");
+                    self.internalError = false;
                     self.loginError = true;
                     self.disabled   = false;
                     self.buttonText = 'Login';
+                    }
                 });
             };
 

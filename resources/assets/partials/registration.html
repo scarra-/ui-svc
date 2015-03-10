@@ -37,4 +37,5 @@
            required>
 
     <button class="btn btn-lg btn-primary btn-block" ng-disabled="registrationForm.$invalid || regCtrl.disabled" type="submit">{{ regCtrl.buttonText }}</button>
+    <label ng-show="regCtrl.internalError" name="internalError" class="formError">500 Internal Server Error</label>
 </form>
