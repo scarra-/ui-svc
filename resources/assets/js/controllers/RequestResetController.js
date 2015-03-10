@@ -21,6 +21,8 @@ angular.module('messageApp.RequestResetController', ['AppConfig' ])
                 else{
                     if (typeof errorResponse.data.error != 'undefined') {
                         self.emailError = true;
+                        self.buttonText = 'Request Password Reset';
+                        self.disabled = false;
                     }
                     // console.log(errorResponse.data);
                 }
