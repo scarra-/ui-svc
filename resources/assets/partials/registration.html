@@ -12,7 +12,8 @@
     <input  ng-model="regCtrl.user.login"
             name="registrationLogin"
             type="username"
-            ng-pattern="/^\S[a-zA-Z0-9]{1,64}$/"
+            ng-pattern="/^\S[a-zA-Z0-9_-]{1,64}$/"
+            
             class="form-control"
             placeholder="Username"
             required >
