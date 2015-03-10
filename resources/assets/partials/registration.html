@@ -13,7 +13,7 @@
             name="registrationLogin"
             type="username"
             ng-pattern="/^\S[a-zA-Z0-9_-]{1,64}$/"
-            
+
             class="form-control"
             placeholder="Username"
             required >
@@ -31,17 +31,13 @@
             placeholder="Email address"
             ng-minlength=6
             ng-maxlength=256
-            ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{1,5}$/"
+            ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z]{1,5}$/"
             required>
 
     <div class="error-container" ng-show="registrationForm.registrationEmail.$dirty && registrationForm.registrationEmail.$invalid">
 
-        <small class="error" ng-show="registrationForm.registrationEmail.$error.email">
-               That is not a valid email. Please input a valid email.<br/>
-        </small>
-
         <small class="error" ng-show="registrationForm.registrationEmail.$error.maxlength">
-                Your email cannot be longer than 20 characters<br/>
+                Your email cannot be longer than 256 characters<br/>
         </small>
         <small class="error" ng-show="registrationForm.registrationEmail.$error.pattern">
                 The email pattern is invalid. It should be something like mail@example.com.
