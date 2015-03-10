@@ -18,7 +18,10 @@ require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
 require('./StreamService');
 require('./InitService');
+require('./controllers/DropzoneController');
+require('./controllers/UserModalController');
 
+var Dropzone = require("dropzone");
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
@@ -53,7 +56,10 @@ var messageApp = angular.module('messageApp', [
         'messageApp.ResetPasswordController',
         'messageApp.ConfirmRegistrationController',
         'messageApp.StreamService',
-        'messageApp.InitService'
+        'messageApp.InitService',
+        'messageApp.DropzoneController',
+        'messageApp.UserModalController'
+
     ])
     .config(['localStorageServiceProvider' , function (localStorageServiceProvider) {
 
@@ -66,11 +72,10 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
-    .controller('UserModalController', ['$routeParams', 'AuthService', function($routeParams, AuthService) {
-        var self = this;
-
-        self.auth     = AuthService.isLoggedIn;
-        self.userName = $routeParams.username;
+    .factory('SubscriptionService', ['$resource', 'AppConfig', function($resource, AppConfig) {
+        return $resource(AppConfig.subscriptionServiceUrl + '/subscriptions/:id', {id:'@id'}, {
+            update: {method: 'PUT'}
+        });
     }])
     .config([ '$routeProvider', function($routeProvider) {
         $routeProvider
@@ -90,4 +95,19 @@ var messageApp = angular.module('messageApp', [
                 templateUrl: 'main.html'
             })
             .otherwise({ redirectTo: '/' });
-    }]);
+    }])
+    .directive('dropzone', function () {
+      return function (scope, element, attrs) {
+        var dropzone;
+        var split = attrs.dropzone.split('.');
+        var config = scope[split[0]][split[1]];
+
+        // create a Dropzone for the element with the given options
+        dropzone = new Dropzone(element[0], config.options);
+
+        // bind the given event handlers
+        angular.forEach(config.eventHandlers, function (handler, event) {
+          dropzone.on(event, handler);
+        });
+      };
+    });

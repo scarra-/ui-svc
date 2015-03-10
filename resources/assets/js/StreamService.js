@@ -5,18 +5,12 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         var messages = [];
         var client        = new Pusher(AppConfig.pusherAppKey);
         var pusher        = $pusher(client);
-        console.log("creating pusher ");
         var currentChannel = "";
 
 
         self.switchChannel = function(channelName) {
-            console.log("called switching channel");
-
-            console.log("current channel is " + currentChannel);
-
 
             if (currentChannel !== channelName) {
-                console.log("switching channel to " + channelName);
 
                 self.clearMessages();
                 pusher.unsubscribe(currentChannel);
@@ -26,7 +20,6 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
                 my_channel.bind('message', function (data) {
                     self.addMessage(data);
-                    console.log("loaded message");
                 });
             }
         }

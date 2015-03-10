@@ -26,10 +26,19 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
             var isLoggedIn = false;
 
             self.user = {};
+            self.buttonText = 'Login';
 
             self.showError = function() {
                 return self.loginError;
-            }
+            };
+
+            self.showButtonName = function(){
+                return self.buttonText;
+            };
+
+            self.changeButtonState = function() {
+                return self.disabled;
+            };
 
             // used for setting user from LoginController
             self.setUser = function(user) {
@@ -43,6 +52,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
             // seems this function is not getting called from Main Ctrl
             self.authenticate = function() {
                 console.log("called authenticate function");
+
 
                 if (window.localStorage.getItem('bootcamp.token') !== null) {
 
@@ -62,6 +72,9 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
             self.login = function(userObject) {
 
+                self.disabled   = true;
+                self.buttonText = 'Loading...';
+
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
                     StreamService.switchChannel(userObject.login);
 
@@ -72,10 +85,15 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     self.setUser(userObject);
 
                     isLoggedIn = true;
+                    self.loginError = false;
+                    self.disabled   = false;
+                    self.buttonText = 'Login';
                 }, function(errorResponse) {
                     // need some action if fails
                     console.log("login failed");
                     self.loginError = true;
+                    self.disabled   = false;
+                    self.buttonText = 'Login';
                 });
             };
 
