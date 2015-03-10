@@ -1,8 +1,10 @@
 angular.module('messageApp.StreamService', ['AppConfig'])
-    .service('StreamService', [ 'AppConfig', '$pusher', function(AppConfig, $pusher) {
+    .service('StreamService', ['AppConfig', '$pusher', function(AppConfig, $pusher) {
         var self = this;
 
-        var messages = [];
+        var pusherMessages = [];
+        var contentMessages = [];
+
         var client        = new Pusher(AppConfig.pusherAppKey);
         var pusher        = $pusher(client);
         var currentChannel = "";
@@ -12,29 +14,42 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
             if (currentChannel !== channelName) {
 
-                self.clearMessages();
+                self.clearPusherMessages();
                 pusher.unsubscribe(currentChannel);
 
                 my_channel = pusher.subscribe(channelName);
                 currentChannel = channelName;
 
                 my_channel.bind('message', function (data) {
-                    self.addMessage(data);
+                    self.addPusherMessage(data);
                 });
             }
         }
 
-
-        self.getMessages = function() {
-            return messages;
+        // functions for the messages from Pusher service
+        self.getPusherMessages = function() {
+            return pusherMessages;
         };
 
-        self.addMessage = function(message) {
-            messages.unshift(message);
+        self.addPusherMessage = function(message) {
+            pusherMessages.unshift(message);
         };
 
-        self.clearMessages = function() {
-            messages = [];
+        self.clearPusherMessages = function() {
+            pusherMessages = [];
+        };
+
+        // functions for the messages from Content service
+        self.getContentMessages = function() {
+            return contentMessages;
+        };
+
+        self.addContentMessage = function(message) {
+            contentMessages.unshift(message);
+        };
+
+        self.clearContentMessages = function() {
+            contentMessages = [];
         };
 
     }]);

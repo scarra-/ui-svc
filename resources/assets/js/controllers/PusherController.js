@@ -4,8 +4,8 @@ angular.module('messageApp.PusherController', ['AppConfig'])
     .controller('PusherController', [ 'StreamService', 'AppConfig', '$pusher', '$http', function (StreamService, AppConfig, $pusher, $http) {
         var self = this;
 
-        self.tweets   = StreamService.getMessages;
-        self.messages = [];
+        self.pusherMessages = StreamService.getPusherMessages;
+        self.contentMessages = StreamService.getContentMessages;
         var loading = false;
 
         self.page = AppConfig.contentServiceUrl+'/messages';
@@ -24,7 +24,7 @@ angular.module('messageApp.PusherController', ['AppConfig'])
                     }
 
                     angular.forEach(success.data, function(message) {
-                        self.messages.push(message);
+                        StreamService.addContentMessage(message);
                     });
                     loading = false;
                 }, function (failure) {
