@@ -61,7 +61,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     var profile = storage.get('profile');
                     self.setUser(profile);
 
-                    StreamService.clearMessages();
+                    StreamService.clearPusherMessages();
                     StreamService.switchChannel(profile.login);
 
                     isLoggedIn = true;

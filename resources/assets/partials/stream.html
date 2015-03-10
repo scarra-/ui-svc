@@ -1,6 +1,6 @@
 <div ng-controller="PusherController as pusherCtrl" >
     <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
-        <li class="activity test-event" ng-repeat="tweet in pusherCtrl.tweets() track by $index">
+        <li class="activity test-event" ng-repeat="tweet in pusherCtrl.pusherMessages() track by $index">
             <div class="stream-item-content">
                 <div class="image"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
                         width="48" height="48"></div>
@@ -19,7 +19,7 @@
     </ul>
     <div infinite-scroll="pusherCtrl.myPagingFunction()" infinite-scroll-distance="2">
         <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
-            <li class="activity test-event" ng-repeat="message in pusherCtrl.messages">
+            <li class="activity test-event" ng-repeat="message in pusherCtrl.contentMessages()">
                 <div class="stream-item-content">
                     <div class="image">
                         <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
