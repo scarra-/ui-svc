@@ -7,7 +7,7 @@ angular.module('messageApp.UserModalController', [])
         'AppConfig',
         'localStorageService',
         'SubscriptionService',
-        function ($http, $routeParams, AuthService, UserService, AppConfig, localStorage) {
+        function ($http, $routeParams, AuthService, UserService, AppConfig, localStorage, SubscriptionService) {
             var self = this;
 
             self.auth = AuthService.isLoggedIn;
@@ -18,8 +18,9 @@ angular.module('messageApp.UserModalController', [])
 
             profile = localStorage.get('profile');
 
-            $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/'+profile.login)
+            $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/' + profile.login)
                 .then(function(success) {
+
                     if (success.data.following.indexOf($routeParams.username) !== -1) {
                         self.followButtonText = 'Unfollow';
                         self.isFollowing = true;
@@ -29,6 +30,7 @@ angular.module('messageApp.UserModalController', [])
                 });
 
             var authHeader = { 'Authorization': 'Bearer ' + localStorage.get('token') };
+
             self.followUser = function () {
                 console.log('follow user: ' + self.user.login);
                 if (self.isFollowing === false) {

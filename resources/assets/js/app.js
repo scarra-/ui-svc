@@ -19,11 +19,9 @@ require('./controllers/ConfirmRegistrationController');
 require('./StreamService');
 require('./InitService');
 require('./controllers/DropzoneController');
-
-var Dropzone = require("dropzone");
-
 require('./controllers/UserModalController');
 
+var Dropzone = require("dropzone");
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
