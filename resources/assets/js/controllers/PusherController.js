@@ -1,22 +1,35 @@
-angular.module('messageApp.PusherController', [])
-    .controller('PusherController', [ 'StreamService','$pusher', '$http', function (StreamService, $pusher, $http) {
+
+
+angular.module('messageApp.PusherController', ['AppConfig'])
+    .controller('PusherController', [ 'StreamService', 'AppConfig', '$pusher', '$http', function (StreamService, AppConfig, $pusher, $http) {
         var self = this;
 
         self.tweets   = StreamService.getMessages;
         self.messages = [];
+        var loading = false;
 
-    //
+        self.page = AppConfig.contentServiceUrl+'/messages';
+        var parse = require('parse-link-header');
 
-    $http.get('http://content.acn-bootcamp.com/messages').then(function(success) {
-        console.log(success);
-        angular.forEach(success.data, function(message) {
-            self.messages.push(message);
+        self.myPagingFunction = function() {
+            if (self.page !== false && loading === false) {
+                loading = true;
+                $http.get(self.page).then(function(success) {
+                    var pagination = parse(success.headers('link'));
 
-        });
-    }, function (failure) {
-                //
-    });
+                    if (pagination.next) {
+                        self.page = pagination.next.url;
+                    } else {
+                        self.page = false;
+                    }
 
-    
-
-}]);
+                    angular.forEach(success.data, function(message) {
+                        self.messages.push(message);
+                    });
+                    loading = false;
+                }, function (failure) {
+                    loading = false;
+                });
+            }
+        };
+    }]);
