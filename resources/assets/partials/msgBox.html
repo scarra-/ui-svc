@@ -2,14 +2,21 @@
       name="msgForm"
       ng-controller="MsgController as msgCtrl"
       ng-submit="msgCtrl.sendMessage();"
-      novalidate
->
+      novalidate>
+
+
     <textarea name="message"
-    		      ng-model="msgCtrl.msg.message"
+    		  ng-model="msgCtrl.msg.message"
               class="form-control custom-control"
               rows="3"
               required >
     </textarea>
+
+    <div class="dropzone dropzone-padding"
+         ng-controller="DropzoneController as DropzoneCtrl"
+         dropzone="DropzoneCtrl.dropzoneConfig">
+    </div>
+    <form action="/upload-target" class="dropzone"></form>
 
     <button id="sendMsg"
             class="btn btn-sm btn-primary btn-block message-btn-margin"
