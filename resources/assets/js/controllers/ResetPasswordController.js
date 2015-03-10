@@ -28,6 +28,11 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
                         console.log("password reset sent");
 
                     }, function(errorResponse) {
+
+                        if(errorResponse.status=='0'){
+                            self.buttonText = 'Reset Password';
+                            self.disabled   = false;
+                        }
                         // add some error message in HTML
                         console.log(errorResponse);
                         console.log("password reset failed");
