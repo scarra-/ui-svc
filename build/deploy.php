@@ -29,4 +29,17 @@ $result = $client->registerApplicationRevision([
     ],
 ]);
 
+$client->createDeployment(array(
+    'applicationName' => $repoName ,
+    'deploymentGroupName' => 'production',
+    'revision' => array(
+        'revisionType' => 'S3',
+        's3Location' => array(
+            'bucket'     => 'acn-bootcamp-internal',
+            'key'        => "builds/{$repoName}/{$repoName}-{$buildnumber}.tar.gz",
+            'bundleType' => 'tar',
+        ),
+    ),
+));
+
 echo "Deployed {$repoName}-{$buildnumber}.tar.gz to {$s3Bucket}/builds/{$repoName}/";
