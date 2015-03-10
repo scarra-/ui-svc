@@ -76,6 +76,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
                 self.disabled   = true;
                 self.buttonText = 'Loading...';
+                self.internalError = false;
 
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
                     StreamService.switchChannel(userObject.login);
@@ -89,7 +90,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     isLoggedIn = true;
                     self.loginError = false;
                     self.disabled   = false;
-                    self.internalError = false;
                     self.buttonText = 'Login';
                 }, function(errorResponse) {
                     // need some action if fails
