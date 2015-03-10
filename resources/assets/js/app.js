@@ -101,6 +101,7 @@ var messageApp = angular.module('messageApp', [
         var dropzone;
         var split = attrs.dropzone.split('.');
         var config = scope[split[0]][split[1]];
+        // Dropzone.autoDiscover = false;
 
         // create a Dropzone for the element with the given options
         dropzone = new Dropzone(element[0], config.options);

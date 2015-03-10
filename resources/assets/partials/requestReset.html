@@ -5,10 +5,14 @@
             <form class="" name="requestResetForm" ng-controller="RequestResetController as requestResetCtrl"
             ng-submit="requestResetCtrl.requestReset()" novalidate>
 
+            <p class="alert alert-success resizedAlert" ng-show = "requestResetCtrl.passwordResset "role="alert">Password resset successful. Check your email for resset link.</p>
+
+                <label ng-show="requestResetCtrl.emailError" name="requestReset" class="formError">There is no such email!</label>
                 <input ng-model="requestResetCtrl.reset.email" name="requestReset" type="email" class="form-control"
                 placeholder="email" required>
 
                 <button class="btn btn-lg btn-primary btn-block" ng-disabled="requestResetForm.$invalid || requestResetCtrl.disabled" type="submit">{{ requestResetCtrl.buttonText }}</button>
+                <a href="#/" class="btn btn-lg btn-primary btn-block" >Back to Homepage</a>
             </form>
 
         </div>

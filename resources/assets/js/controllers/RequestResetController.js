@@ -7,15 +7,28 @@ angular.module('messageApp.RequestResetController', ['AppConfig' ])
 
         self.requestReset = function() {
 
-            // self.buttonText = 'Loading...';
-            // self.disabled = true;
+            self.emailError = false;
 
             $http.post(AppConfig.userServiceUrl+'/resets', self.reset).then(function(response) {
-                $location.path( "/#/" );
                 console.log("password reset success");
-
+                self.buttonText = 'Request Password Reset';
+                self.disabled   = false;
+                self.passwordResset = true;
             }, function(errorResponse) {
-                console.log("password reset failed");
+                //console.log(errorResponse);
+                if(errorResponse.status=='0'){
+                    self.buttonText = 'Request Password Reset';
+                    self.disabled   = false;
+                }
+                else{
+                    if (typeof errorResponse.data.error != 'undefined') {
+                        self.emailError = true;
+                        self.buttonText = 'Request Password Reset';
+                        self.disabled = false;
+                    }
+                    // console.log(errorResponse.data);
+                }
+                self.passwordResset = false;
             });
             self.buttonText = 'Loading...';
             self.disabled = true;

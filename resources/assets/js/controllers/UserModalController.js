@@ -36,6 +36,7 @@ angular.module('messageApp.UserModalController', [])
             $http.get(AppConfig.contentServiceUrl + '/messages?per_page=15&owner=' + $routeParams.username)
                 .then(function(success) {
                     self.messages = success.data;
+
                 }, function(failure) {
 
                 });
