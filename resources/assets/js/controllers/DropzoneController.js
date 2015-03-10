@@ -10,9 +10,13 @@ angular.module('messageApp.DropzoneController',[])
         },
         'eventHandlers': {
           'sending': function (file, xhr, formData) {
-        
+             console.log("sending the file");
+             // can add token if needed to xhr
           },
           'success': function (file, response) {
+              console.log("successful upload");
+              console.log(response);
+
           }
         }
       };
