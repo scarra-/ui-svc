@@ -40,6 +40,10 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 return self.disabled;
             };
 
+            self.internalError = function(){
+                return self.internalError;
+            }
+
             // used for setting user from LoginController
             self.setUser = function(user) {
                 self.user = user;
@@ -87,13 +91,23 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     isLoggedIn = true;
                     self.loginError = false;
                     self.disabled   = false;
+                    self.internalError = false;
                     self.buttonText = 'Login';
                 }, function(errorResponse) {
                     // need some action if fails
+                    console.log(errorResponse);
+                    if(errorResponse.status=='0'){
+                        self.buttonText = 'Login';
+                        self.disabled   = false;
+                        self.internalError = true;
+                    }
+                    else{
                     console.log("login failed");
+                    self.internalError = false;
                     self.loginError = true;
                     self.disabled   = false;
                     self.buttonText = 'Login';
+                    }
                 });
             };
 

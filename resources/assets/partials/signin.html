@@ -9,6 +9,7 @@
 		<!-- <p ng-show="" class="help-block">Enter a valid email.</p> -->
 
 		<button class="btn btn-lg btn-primary btn-block" ng-disabled="loginForm.$invalid || loginCtrl.disable()" type="submit">{{ loginCtrl.buttonText() }}</button>
+		<label ng-show="loginCtrl.internalError()" name="internalError" class="formError">500 Internal Server Error</label>
 	</form>
 
 		<a href="#/forgotPassword">Forgot Password?</a>

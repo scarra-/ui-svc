@@ -10,6 +10,7 @@ angular.module('messageApp.LoginController', [])
             self.loginError = AuthService.showError;
             self.buttonText = AuthService.showButtonName;
             self.disable = AuthService.changeButtonState;
+            self.internalError = AuthService.internalError;
         };
 
         self.logout = function() {

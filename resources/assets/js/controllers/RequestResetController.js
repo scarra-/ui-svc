@@ -15,6 +15,11 @@ angular.module('messageApp.RequestResetController', ['AppConfig' ])
                 console.log("password reset success");
 
             }, function(errorResponse) {
+                //console.log(errorResponse);
+                if(errorResponse.status=='0'){
+                    self.buttonText = 'Request Password Reset';
+                    self.disabled   = false;
+                }
                 console.log("password reset failed");
             });
             self.buttonText = 'Loading...';
