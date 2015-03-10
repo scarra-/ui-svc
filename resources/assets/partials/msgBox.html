@@ -2,10 +2,11 @@
       name="msgForm"
       ng-controller="MsgController as msgCtrl"
       ng-submit="msgCtrl.sendMessage();"
-      novalidate
->
+      novalidate>
+
+
     <textarea name="message"
-    		      ng-model="msgCtrl.msg.message"
+    		  ng-model="msgCtrl.msg.message"
               class="form-control custom-control"
               rows="3"
               required >
