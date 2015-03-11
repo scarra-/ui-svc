@@ -4,6 +4,7 @@ require('angular-route/angular-route.min');
 require('ng-infinite-scroll');
 require('pusher-angular');
 require('angular-local-storage');
+require('ng-file-upload/dist/angular-file-upload');
 
 require('./partials');
 require('./controllers/LoginController');
@@ -18,10 +19,7 @@ require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
 require('./StreamService');
 require('./InitService');
-require('./controllers/DropzoneController');
 require('./controllers/UserModalController');
-
-var Dropzone = require("dropzone");
 
 var AppConfig = angular.module('AppConfig', [])
     .provider('AppConfig', function () {
@@ -45,6 +43,7 @@ var messageApp = angular.module('messageApp', [
         'LocalStorageModule',
         'AppConfig',
         'partialsModule',
+        'angularFileUpload',
         'messageApp.LoginController',
         'messageApp.RegisterController',
         'messageApp.MainController',
@@ -57,7 +56,6 @@ var messageApp = angular.module('messageApp', [
         'messageApp.ConfirmRegistrationController',
         'messageApp.StreamService',
         'messageApp.InitService',
-        'messageApp.DropzoneController',
         'messageApp.UserModalController'
 
     ])
@@ -104,6 +102,7 @@ var messageApp = angular.module('messageApp', [
         // Dropzone.autoDiscover = false;
 
         // create a Dropzone for the element with the given options
+        var Dropzone = require("dropzone");
         dropzone = new Dropzone(element[0], config.options);
 
         // bind the given event handlers
