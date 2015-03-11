@@ -114,6 +114,8 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 storage.remove('token');
                 storage.remove('profile');
                 console.log("logging out");
+                StreamService.clearContentMessages();
+                StreamService.myPagingFunction();
 
                 StreamService.switchChannel("public_channel");
                 // maybe need to disconnect from pusher channel
