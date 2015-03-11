@@ -17,6 +17,7 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.file[0].name);
                 }).success(function (data, status, headers, config) {
                     console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+                    self.msg.image_id = data.image_id;
                     self.sendMessage();
                 }).error(function (data, status, headers, config) {
                     console.log('Failed to upload image: ' + config.file[0].name);

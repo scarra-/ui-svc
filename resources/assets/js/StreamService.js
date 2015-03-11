@@ -26,30 +26,32 @@ angular.module('messageApp.StreamService', ['AppConfig'])
             }
         }
 
-        var lastMessageId = 0;
+        var lastMessageId = false;
+
+        self.messagesLoading = false;
+        var contentPage = AppConfig.contentServiceUrl + '/messages';
+        var parse = require('parse-link-header');
+
+
+        var config = {
+            headers: {'Authorization': 'Bearer '+ localStorage.get('token')},
+            // params: {}
+            // // params: {"id" : "<=" + lastMessageId }
+        };
 
         self.myPagingFunction = function() {
-            self.messagesLoading = false;
-            var contentPage = AppConfig.contentServiceUrl + '/messages';
-            var parse = require('parse-link-header');
-
-            var config = {
-                headers: {'Authorization': 'Bearer '+ localStorage.get('token')},
-                params: {"id" : "lt;=" + lastMessageId }
-            };
-
             if (contentPage !== false && self.messagesLoading === false) {
                 self.messagesLoading = true;
                 $http.get(contentPage, config).then(function(success) {
                     var pagination = parse(success.headers('link'));
-                    console.log(success.data);
 
-                    if (success.data.length - 1 >= 0) {
-                        lastMessageId = success.data[success.data.length - 1].id;
+                    if (success.data.length - 1 >= 0 && lastMessageId === false) {
+                        lastMessageId = success.data[0].id;
                     }
 
                     if (pagination.next) {
                         contentPage = pagination.next.url;
+                        contentPage += "&id=<=" + lastMessageId;
                     } else {
                         contentPage = false;
                     }
@@ -83,7 +85,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         };
 
         self.addContentMessage = function(message) {
-            contentMessages.unshift(message);
+            contentMessages.push(message);
         };
 
         self.clearContentMessages = function() {
