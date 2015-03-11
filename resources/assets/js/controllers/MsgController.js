@@ -1,16 +1,17 @@
 angular.module('messageApp.MsgController', ['AppConfig'])
     .controller('MsgController', ['$http', 'AppConfig','localStorageService', '$upload', function($http, AppConfig, localStorage, $upload) {
         var self = this;
+        self.img = {};
 
         var authHeader = { 'Authorization': 'Bearer ' + localStorage.get('token') };
 
         self.submit = function() {
-            if (self.msg.image) {
-                console.log(self.msg.image);
+            if (self.img.image) {
+                console.log(self.img.image);
                 $upload.upload({
-                    url: 'upload/url',
+                    url: AppConfig.contentServiceUrl + '/upload',
                     headers: authHeader,
-                    file: self.msg.image
+                    file: self.img.image
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.file[0].name);
@@ -26,6 +27,7 @@ angular.module('messageApp.MsgController', ['AppConfig'])
         };
 
         self.sendMessage = function() {
+            var authHeader = { 'Authorization': 'Bearer ' + localStorage.get('token') };
             $http.post(AppConfig.contentServiceUrl+'/messages', self.msg, {headers: authHeader}).then(function() {
                 self.msg = {};
             }, function(errorResponse) {
