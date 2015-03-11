@@ -5,7 +5,7 @@ angular.module('messageApp.MsgController', ['AppConfig'])
         self.sendMessage = function() {
             console.log("calling method");
 
-            var authHeader = { 'Authorization': 'Bearer '+localStorage.get('token') };
+            var authHeader = { 'Authorization': 'Bearer ' + localStorage.get('token') };
 
             $http.post(AppConfig.contentServiceUrl+'/messages', self.msg, {headers: authHeader}).then(function() {
                 self.msg = {};
@@ -13,6 +13,8 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                 console.log("message sent");
 
             }, function(errorResponse) {
+                console.log("failed sending message");
+                console.log(errorResponse);
 
             });
         };

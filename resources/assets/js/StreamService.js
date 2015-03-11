@@ -33,17 +33,20 @@ angular.module('messageApp.StreamService', ['AppConfig'])
             var contentPage = AppConfig.contentServiceUrl + '/messages';
             var parse = require('parse-link-header');
 
-            var config = {headers:  {
-                'Authorization': 'Bearer '+ localStorage.get('token'),
-                'lastMessageId': lastMessageId
-                }
+            var config = {
+                headers: {'Authorization': 'Bearer '+ localStorage.get('token')},
+                params: {"id" : "lt;=" + lastMessageId }
             };
 
             if (contentPage !== false && self.messagesLoading === false) {
                 self.messagesLoading = true;
                 $http.get(contentPage, config).then(function(success) {
                     var pagination = parse(success.headers('link'));
-                    lastMessageId = success.data[success.data.length - 1].id;
+                    console.log(success.data);
+
+                    if (success.data.length - 1 >= 0) {
+                        lastMessageId = success.data[success.data.length - 1].id;
+                    }
 
                     if (pagination.next) {
                         contentPage = pagination.next.url;
