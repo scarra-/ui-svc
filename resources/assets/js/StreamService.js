@@ -1,5 +1,5 @@
 angular.module('messageApp.StreamService', ['AppConfig'])
-    .service('StreamService', ['AppConfig', '$pusher', function(AppConfig, $pusher) {
+    .service('StreamService', ['AppConfig', '$pusher','localStorageService', '$http', function(AppConfig, $pusher,localStorage, $http) {
         var self = this;
 
         var pusherMessages = [];
@@ -25,6 +25,34 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                 });
             }
         }
+
+
+        self.myPagingFunction = function() {
+            self.messagesLoading = false;
+            var contentPage = AppConfig.contentServiceUrl + '/messages';
+            var parse = require('parse-link-header');
+            var authHeader = { 'Authorization': 'Bearer '+ localStorage.get('token') };
+
+            if (contentPage !== false && self.messagesLoading === false) {
+                self.messagesLoading = true;
+                $http.get(contentPage, {headers: authHeader}).then(function(success) {
+                    var pagination = parse(success.headers('link'));
+
+                    if (pagination.next) {
+                        contentPage = pagination.next.url;
+                    } else {
+                        contentPage = false;
+                    }
+
+                    angular.forEach(success.data, function(message) {
+                        self.addContentMessage(message);
+                    });
+                    self.messagesLoading = false;
+                }, function (failure) {
+                    self.messagesLoading = false;
+                });
+            }
+        };
 
         // functions for the messages from Pusher service
         self.getPusherMessages = function() {
