@@ -1,20 +1,19 @@
-<form class=""
-      name="msgForm"
+<form name="msgForm"
       ng-controller="MsgController as msgCtrl"
-      ng-submit="msgCtrl.sendMessage();"
+      ng-submit="msgCtrl.submit();"
       novalidate>
 
     <textarea name="message"
-    		  ng-model="msgCtrl.msg.message"
+    		      ng-model="msgCtrl.msg.message"
               class="form-control custom-control"
               rows="3"
               required >
     </textarea>
 
-    <div class="dropzone dropzone-padding"
-         ng-controller="DropzoneController as DropzoneCtrl"
-         dropzone="DropzoneCtrl.dropzoneConfig">
-    </div>
+    <div class="btn btn-sm btn-primary"
+         ng-file-select ng-model="msgCtrl.msg.image">Add image</div>
+
+    <div>{{ msgCtrl.msg.image }}</div>
 
     <button id="sendMsg"
             class="btn btn-sm btn-primary btn-block message-btn-margin"
