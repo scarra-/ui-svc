@@ -2,8 +2,14 @@ angular.module('messageApp.PusherController', ['AppConfig'])
     .controller('PusherController', [ 'StreamService', 'AppConfig', '$pusher', '$http', function (StreamService, AppConfig, $pusher, $http) {
         var self = this;
 
+
         self.pusherMessages = StreamService.getPusherMessages;
         self.contentMessages = StreamService.getContentMessages;
+
+        self.tweets   = StreamService.getMessages;
+
+        self.messages = [];
+
         var loading = false;
 
         self.page = AppConfig.contentServiceUrl+'/messages';
