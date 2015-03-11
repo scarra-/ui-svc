@@ -23,11 +23,11 @@ angular.module('messageApp.ResetPasswordController', ['AppConfig' ])
                     delete self.passwordReset.password2;
 
                     $http.post(AppConfig.userServiceUrl + '/reset', self.passwordReset).then(function(response) {
-
-                        $location.path( "/#/" );
+                        self.passwordResset = true;
                         console.log("password reset sent");
 
                     }, function(errorResponse) {
+                        self.passwordResset = false;
 
                         if(errorResponse.status=='0'){
                             self.buttonText = 'Reset Password';

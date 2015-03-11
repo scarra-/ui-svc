@@ -10,6 +10,8 @@ angular.module('messageApp.UserModalController', [])
         function ($http, $routeParams, AuthService, UserService, AppConfig, localStorage, SubscriptionService) {
             var self = this;
 
+            self.messages = [];
+
             self.auth = AuthService.isLoggedIn;
             self.user = UserService.get({id:$routeParams.username}, function() {});
 
@@ -18,13 +20,23 @@ angular.module('messageApp.UserModalController', [])
 
             profile = localStorage.get('profile');
 
-            $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/' + profile.login)
-                .then(function(success) {
+            if (profile) {
+                $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/' + profile.login)
+                    .then(function(success) {
 
-                    if (success.data.following.indexOf($routeParams.username) !== -1) {
-                        self.followButtonText = 'Unfollow';
-                        self.isFollowing = true;
-                    }
+                        if (success.data.followers.indexOf($routeParams.username) !== -1) {
+                            self.followButtonText = 'Unfollow';
+                            self.isFollowing = true;
+                        }
+                    }, function(failure) {
+
+                    });
+            }
+
+            $http.get(AppConfig.contentServiceUrl + '/messages?per_page=15&owner=' + $routeParams.username)
+                .then(function(success) {
+                    self.messages = success.data;
+
                 }, function(failure) {
 
                 });
