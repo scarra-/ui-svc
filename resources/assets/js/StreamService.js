@@ -38,14 +38,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
 
         self.myPagingFunction = function() {
-            console.log("called paging function");
-            console.log(contentPage);
-            console.log(messagesLoading);
             if (contentPage !== false && messagesLoading === false) {
-                console.log("inside if");
-                console.log(contentPage);
-                console.log(messagesLoading);
-
                 messagesLoading = true;
                 $http.get(contentPage, config).then(function(success) {
                     var pagination = parse(success.headers('link'));
@@ -60,7 +53,6 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                     } else {
                         contentPage = false;
                     }
-
                     angular.forEach(success.data, function(message) {
                         self.addContentMessage(message);
                     });
