@@ -53,7 +53,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 return isLoggedIn;
             };
 
-            // seems this function is not getting called from Main Ctrl
             self.authenticate = function() {
 
                 if (window.localStorage.getItem('bootcamp.token') !== null) {
@@ -69,7 +68,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 else {
                     StreamService.switchChannel("public_channel");
                 }
-
             };
 
             self.login = function(userObject) {
@@ -80,6 +78,7 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
                     StreamService.switchChannel(userObject.login);
+                    StreamService.clearContentMessages();
 
                     storage.set('token', response.data.token);
                     var encodedProfile = response.data.token.split('.')[1];
@@ -87,24 +86,26 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                     storage.set('profile', JSON.parse(url_base64_decode(encodedProfile)).user);
                     self.setUser(userObject);
 
+                    StreamService.myPagingFunction();
                     isLoggedIn = true;
                     self.loginError = false;
                     self.disabled   = false;
                     self.buttonText = 'Login';
+
                 }, function(errorResponse) {
                     // need some action if fails
                     console.log(errorResponse);
-                    if(errorResponse.status=='0'){
+                    if (errorResponse.status=='0') {
                         self.buttonText = 'Login';
                         self.disabled   = false;
                         self.internalError = true;
                     }
-                    else{
-                    console.log("login failed");
-                    self.internalError = false;
-                    self.loginError = true;
-                    self.disabled   = false;
-                    self.buttonText = 'Login';
+                    else {
+                        console.log("login failed");
+                        self.internalError = false;
+                        self.loginError = true;
+                        self.disabled   = false;
+                        self.buttonText = 'Login';
                     }
                 });
             };
@@ -113,9 +114,12 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 storage.remove('token');
                 storage.remove('profile');
                 console.log("logging out");
+                StreamService.clearContentMessages();
+                StreamService.myPagingFunction();
 
                 StreamService.switchChannel("public_channel");
                 // maybe need to disconnect from pusher channel
                 isLoggedIn = false;
             };
+
         }]);

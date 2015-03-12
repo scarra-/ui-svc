@@ -13,14 +13,18 @@
             name="registrationLogin"
             type="username"
             ng-pattern="/^\S[a-zA-Z0-9_-]{1,64}$/"
-
+            ng-maxlength=64
+            ng-model-options="{ updateOn: 'mousedown blur' }"
             class="form-control"
             placeholder="Username"
             required >
 
     <div class="error-container" ng-show="registrationForm.registrationLogin.$dirty && registrationForm.registrationLogin.$invalid">
         <small class="error" ng-show="registrationForm.registrationLogin.$error.pattern">
-                Invalid login. Please use only characters.
+                Invalid login. You can use characters, numbers, dashes and underscores.
+        </small>
+        <small class="error" ng-show="registrationForm.registrationLogin.$error.maxlength">
+                Your username cannot be longer than 64 characters<br/>
         </small>
     </div>
 
@@ -32,6 +36,7 @@
             ng-minlength=6
             ng-maxlength=256
             ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z]{1,5}$/"
+            ng-model-options="{ updateOn: 'mousedown blur' }"
             required>
 
     <div class="error-container" ng-show="registrationForm.registrationEmail.$dirty && registrationForm.registrationEmail.$invalid">
@@ -40,7 +45,7 @@
                 Your email cannot be longer than 256 characters<br/>
         </small>
         <small class="error" ng-show="registrationForm.registrationEmail.$error.pattern">
-                The email pattern is invalid. It should be something like mail@example.com.
+                The email pattern is invalid. It should be something like mail@example.com. You can use characters, numbers, dots and uncerscore.
         </small>
     </div>
 

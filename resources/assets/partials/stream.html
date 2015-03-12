@@ -17,7 +17,7 @@
             </div>
         </li>
     </ul>
-    <div infinite-scroll="pusherCtrl.myPagingFunction()" infinite-scroll-distance="0.5">
+    <div infinite-scroll="pusherCtrl.myPagingFunction()" infinite-scroll-distance="0.5" >
         <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
             <li class="activity test-event" ng-repeat="message in pusherCtrl.contentMessages()">
                 <div class="stream-item-content">
@@ -32,6 +32,7 @@
                                 <a ng-href="#/{{ message.owner }}">{{ message.owner }}</a>
                             </span>
                             <div class="text">{{ message.message }}</div>
+                            <img ng-show="message.image_id !== ''" src="http://s.acn-bootcamp.com/{{ message.image_id }}/image400.jpg">
                             <div class="activity-row"><span class="time">{{ message.created_at }}</span></div>
                         </div>
                     </div>
