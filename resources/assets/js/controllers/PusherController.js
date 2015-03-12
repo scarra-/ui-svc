@@ -11,7 +11,6 @@ angular.module('messageApp.PusherController', ['AppConfig'])
 
             self.pusherMessages = StreamService.getPusherMessages;
             self.contentMessages = StreamService.getContentMessages;
-
             self.myPagingFunction = StreamService.myPagingFunction;
 
     }]);
