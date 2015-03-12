@@ -1,6 +1,6 @@
 <div ng-controller="MainController as mainCtrl">
+    <div ng-include="'header.html'"></div>
     <div class="container" ng-switch on="mainCtrl.auth()">
-        <div ng-include="'header.html'"></div>
         <div class="col-md-3" >
             <div ng-switch-when="false">
                 <div ng-include="'signin.html'"></div>
