@@ -1,3 +1,7 @@
+$ = require('jquery');
+window.jQuery = $;
+window.$ = $;
+
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');

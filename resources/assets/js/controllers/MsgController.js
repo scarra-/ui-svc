@@ -1,5 +1,5 @@
 angular.module('messageApp.MsgController', ['AppConfig'])
-    .controller('MsgController', ['$http', 'AppConfig','localStorageService', '$upload', function($http, AppConfig, localStorage, $upload) {
+    .controller('MsgController', ['$http', 'AppConfig','localStorageService', '$upload', '$scope', function($http, AppConfig, localStorage, $upload, $scope) {
         var self = this;
         self.img = {};
         self.buttonText = 'Send message';
@@ -15,6 +15,40 @@ angular.module('messageApp.MsgController', ['AppConfig'])
 
         }
 
+        var showDrag = false;
+        var timeout = -1;
+
+        $('html').on('dragenter', function() {
+            $('.filedroparea').show();
+            showDrag = true;
+        });
+
+        $('html').bind('dragover', function(){
+            showDrag = true;
+        });
+
+        $('html').on('dragleave', function() {
+            showDrag = false;
+            clearTimeout( timeout );
+            timeout = setTimeout( function(){
+                if( !showDrag ){ $('.filedroparea').hide(); }
+            }, 200 );
+        });
+
+        self.fileDropped = function(file) {
+            $('.filedroparea').hide();
+            console.log(file);
+            if (file && file[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.image-preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(file[0]);
+                $('.image-preview').show();
+            }
+        }
 
         self.submit = function() {
             self.internalError = false;
