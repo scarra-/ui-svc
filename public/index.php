@@ -17,11 +17,17 @@ $app = new Silex\Application();
 
 $app['environment'] = $_ENV;
 
+if (isset($_ENV['UI_SVC_APP_DEBUG'])) {
+    $app['debug'] = $_ENV['UI_SVC_APP_DEBUG'];
+}
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../resources/views',
 ));
 
-$app['twig']->setCache(__DIR__.'/../storage/cache/');
+if (true !== $app['debug']) {
+    $app['twig']->setCache(__DIR__.'/../storage/cache/');
+}
 
 $app['twig']->addFunction(new Twig_SimpleFunction('elixir', function ($file){
     static $manifest = null;
@@ -51,8 +57,8 @@ $app->get('/', function () use ($app) {
 $app->post('/pusher/auth', function () use ($app) {
     $pusher = new Pusher(
         $_ENV['UI_SVC_PUSHER_APP_KEY'],
-         $_ENV['UI_SVC_PUSHER_APP_SECRET'],
-         $_ENV['UI_SVC_PUSHER_APP_ID']
+        $_ENV['UI_SVC_PUSHER_APP_SECRET'],
+        $_ENV['UI_SVC_PUSHER_APP_ID']
     );
 
     return $pusher->socket_auth(
