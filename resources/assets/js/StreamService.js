@@ -1,5 +1,5 @@
 angular.module('messageApp.StreamService', ['AppConfig'])
-    .service('StreamService', ['AppConfig', '$pusher', function(AppConfig, $pusher) {
+    .service('StreamService', ['AppConfig', '$pusher','localStorageService', '$http', function(AppConfig, $pusher,localStorage, $http) {
         var self = this;
 
         var pusherMessages = [];
@@ -26,6 +26,45 @@ angular.module('messageApp.StreamService', ['AppConfig'])
             }
         }
 
+        var lastMessageId = false;
+        var messagesLoading = false;
+        var contentPage = AppConfig.contentServiceUrl + '/messages';
+        var parse = require('parse-link-header');
+        var config = {
+            headers: {'Authorization': 'Bearer '+ localStorage.get('token')},
+            // params: {}
+            // // params: {"id" : "<=" + lastMessageId }
+        };
+
+
+        self.myPagingFunction = function() {
+            if (contentPage !== false && messagesLoading === false) {
+                messagesLoading = true;
+                $http.get(contentPage, config).then(function(success) {
+                    var pagination = parse(success.headers('link'));
+
+                    if (success.data.length - 1 >= 0 && lastMessageId === false) {
+                        lastMessageId = success.data[0].id;
+                    }
+
+                    if (pagination.next) {
+                        contentPage = pagination.next.url;
+                        contentPage += "&id=<=" + lastMessageId;
+                    } else {
+                        contentPage = false;
+                    }
+                    angular.forEach(success.data, function(message) {
+                        var ext = message.image_id.split('.');
+                        message.ext = ext[ext.length - 1];
+                        self.addContentMessage(message);
+                    });
+                    messagesLoading = false;
+                }, function (failure) {
+                    messagesLoading = false;
+                });
+            }
+        };
+
         // functions for the messages from Pusher service
         self.getPusherMessages = function() {
             return pusherMessages;
@@ -45,11 +84,12 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         };
 
         self.addContentMessage = function(message) {
-            contentMessages.unshift(message);
+            contentMessages.push(message);
         };
 
         self.clearContentMessages = function() {
             contentMessages = [];
+            contentPage = AppConfig.contentServiceUrl + '/messages';
         };
 
     }]);

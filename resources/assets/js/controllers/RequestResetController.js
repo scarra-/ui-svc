@@ -21,9 +21,6 @@ angular.module('messageApp.RequestResetController', ['AppConfig' ])
                 self.disabled   = false;
                 self.passwordResset = true;
 
-                // self.redirectButton = true;
-
-
             }, function(errorResponse) {
                 //console.log(errorResponse);
                 if(errorResponse.status=='0'){
