@@ -2,8 +2,6 @@
     <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
         <li class="activity test-event" ng-repeat="tweet in pusherCtrl.pusherMessages() track by $index">
             <div class="stream-item-content">
-                <div class="image"><img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
-                        width="48" height="48"></div>
                 <div class="content">
                     <!-- jāuztaisa links uz cilvēka lapu, kas tweeto-->
                     <div class="activity-row">
@@ -22,23 +20,34 @@
         <ul id="activity_stream_example" class="activity-stream no-actions animate-repeat">
             <li class="activity test-event" ng-repeat="message in pusherCtrl.contentMessages()">
                 <div class="stream-item-content">
-                    <div class="image">
-                        <img src="http://www.gravatar.com/avatar/00000000000000000000000000000000?d=monsterid&amp;s=48"
-                             width="48"
-                             height="48"/>
-                    </div>
                     <div class="content">
                         <div class="activity-row">
                             <span class="user-name">
                                 <a ng-href="#/{{ message.owner }}">{{ message.owner }}</a>
                             </span>
                             <div class="text">{{ message.message }}</div>
-                            <img ng-if="message.image_id !== ''" ng-src="http://s.acn-bootcamp.com/{{ message.image_id }}/image400.{{ message.ext }}">
-                            <div class="activity-row"><span class="time">{{ message.created_at }}</span></div>
+                            <div ng-if="message.image_id !== ''" class="message-image">
+
+                                <a href="#/" data-toggle="modal" data-target="#exampleModal" data-whatever="http://s.acn-bootcamp.com/{{ message.image_id }}/image800.{{ message.ext }}">
+                                    <img class="img-rounded" ng-src="http://s.acn-bootcamp.com/{{ message.image_id }}/image400.{{ message.ext }}">
+                                </a>
+                            </div>
+                            <div class="activity-row">
+                                <span class="time">{{ message.created_at }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="dialog">
+            <div class="imageDIV">
+                <div class="captureImg">
+                    <img class="img-rounded" id="fadeImage" data-dismiss="modal" ng-src="">
+                </div>
+            </div>
+        </div>
     </div>
 </div>

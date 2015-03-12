@@ -1,8 +1,13 @@
+var $ = require('jquery');
+window.jQuery = $;
+window.$ = $;
+
 require('angular/angular.min');
 require('angular-resource/angular-resource.min');
 require('angular-route/angular-route.min');
 require('ng-infinite-scroll');
 require('pusher-angular');
+require('bootstrap');
 require('angular-local-storage');
 require('ng-file-upload/dist/angular-file-upload');
 
@@ -14,6 +19,7 @@ require('./controllers/MsgController');
 require('./controllers/MainController');
 require('./controllers/RequestResetController');
 require('./controllers/ProfileController');
+require('./controllers/PeopleController');
 require('./AuthService');
 require('./controllers/ResetPasswordController');
 require('./controllers/ConfirmRegistrationController');
@@ -51,6 +57,7 @@ var messageApp = angular.module('messageApp', [
         'messageApp.PusherController',
         'messageApp.RequestResetController',
         'messageApp.ProfileController',
+        'messageApp.PeopleController',
         'messageApp.AuthService',
         'messageApp.ResetPasswordController',
         'messageApp.ConfirmRegistrationController',
@@ -70,6 +77,15 @@ var messageApp = angular.module('messageApp', [
             update: {method: 'PUT'}
         });
     }])
+
+    .service('PeopleService', ['UserService', function(UserService){
+        var self = this;
+        var people = UserService.query();
+        self.getPeople = function(){
+            return people;
+        };
+    }])
+
     .factory('SubscriptionService', ['$resource', 'AppConfig', function($resource, AppConfig) {
         return $resource(AppConfig.subscriptionServiceUrl + '/subscriptions/:id', {id:'@id'}, {
             update: {method: 'PUT'}

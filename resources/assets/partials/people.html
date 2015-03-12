@@ -1,0 +1,15 @@
+<div ng-controller="PeopleController as peopleCtrl">
+    <div class="panel panel-default profile-panel">
+        <div class="searchPeople">
+            <label for="people">Meklēt lietotāju</label><br>
+            <input type='text' name="people" class="form-control" ng-model='search'/>
+        </div>
+        <div class='people'>
+            <ul >
+                <li ng-repeat="person in peopleCtrl.people()">
+                    <a ng-href="#/{{person.login}}">{{person.login}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

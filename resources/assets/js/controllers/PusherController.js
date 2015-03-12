@@ -13,4 +13,10 @@ angular.module('messageApp.PusherController', ['AppConfig'])
             self.contentMessages = StreamService.getContentMessages;
             self.myPagingFunction = StreamService.myPagingFunction;
 
+            $('#exampleModal').on('show.bs.modal', function (event) {
+              var button = $(event.relatedTarget);
+              var image = button.data('whatever');
+              $('#fadeImage').attr('src', image);
+            })
+
     }]);
