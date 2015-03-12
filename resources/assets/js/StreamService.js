@@ -29,6 +29,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                 my_channel = pusher.subscribe(channelName);
                 currentChannel = channelName;
                 my_channel.bind('message', function (data) {
+                    console.log(data);
                     self.addPusherMessage(data);
                 });
             }
@@ -79,6 +80,8 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         };
 
         self.addPusherMessage = function(message) {
+            var ext = message.image_id.split('.');
+            message.ext = ext[ext.length - 1];
             pusherMessages.unshift(message);
         };
 

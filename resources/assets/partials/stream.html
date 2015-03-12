@@ -11,6 +11,7 @@
                             <a ng-href="#/{{ tweet.name }}">{{ tweet.name }}</a>
                         </span>
                         <div class="text">{{ tweet.message }}</div>
+                        <img ng-if="tweet.image_id !== ''" ng-src="http://s.acn-bootcamp.com/{{ tweet.image_id }}/image400.{{ tweet.ext }}">
                         <div class="activity-row"><span class="time">{{ tweet.time }}</span></div>
                     </div>
                 </div>
