@@ -11,10 +11,18 @@
     </textarea>
 
     <div ng-file-select ng-file-drop ng-model="msgCtrl.img.image">
-        <div class="out form-control custom-control">
+        <div class="out form-control custom-control hvr-hollow ">
             <div class="input"
                 >Drag and Drop or Click to add picture
-                <div>{{ msgCtrl.img.image[0].name }}</div>
+                <div ng-hide="msgCtrl.hideImageName">{{ msgCtrl.img.image[0].name }}
+                    <div class="progress" ng-hide="msgCtrl.hideinput">
+                       <div class="progress-bar" role="progressbar"
+                          aria-valuemin="0" aria-valuemax="100" style="width: {{msgCtrl.showProgress()}}%;">
+                          <span class="sr-only">40% Complete</span>
+                       </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     </div>

@@ -4,13 +4,23 @@ angular.module('messageApp.MsgController', ['AppConfig'])
         self.img = {};
         self.buttonText = 'Send message';
         self.disabled   = false;
+        self.hideinput = true;
+        self.hideImageName = false;
 
         var authHeader = { 'Authorization': 'Bearer ' + localStorage.get('token') };
+
+        self.showProgress = function(){
+
+            return self.progress;
+
+        }
+
 
         self.submit = function() {
             self.internalError = false;
             self.disabled   = true;
             self.buttonText = 'Loading...';
+            self.hideinput = false;
 
             if (self.img.image) {
                 console.log(self.img.image);
@@ -20,6 +30,7 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                     file: self.img.image
                 }).progress(function (evt) {
                     var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    self.progress = progressPercentage;
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.file[0].name);
                 }).success(function (data, status, headers, config) {
                     console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
@@ -27,6 +38,10 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                     self.sendMessage();
                         self.buttonText = 'Send message';
                         self.disabled   = false;
+                    if(self.progress == 100){
+                        self.hideinput = true;
+                        self.hideImageName = true;
+                    }
                 }).error(function (data, status, headers, config) {
                     // if(status=='0'){
                     //     self.buttonText = 'Send message';
@@ -36,6 +51,8 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                     // else{
                         self.buttonText = 'Send message';
                         self.disabled   = false;
+                        self.hideinput = false;
+                        self.hideImageName = false;
                         console.log('Failed to upload image: ' + config.file[0].name);
                     //}
 
@@ -44,6 +61,7 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                 self.sendMessage();
                 self.buttonText = 'Send message';
                 self.disabled   = false;
+                self.hideinput = true;
             }
             self.buttonText = 'Send message';
             self.disabled   = false;
