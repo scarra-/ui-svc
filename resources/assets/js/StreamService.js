@@ -9,8 +9,6 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         var pusher;
 
         self.createPusher = function() {
-            console.log("create pusher", localStorage.get('token'));
-
             client = new Pusher(AppConfig.pusherAppKey, {
                 auth: {
                     headers: {
@@ -24,7 +22,6 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
 
         self.switchChannel = function(channelName) {
-            console.log("swicth channel");
             if (currentChannel !== channelName) {
                 self.createPusher();
 
