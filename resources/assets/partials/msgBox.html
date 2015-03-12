@@ -11,6 +11,10 @@
               required >
     </textarea>
 
+    <div id="inputLength" ng-hide="msgCtrl.msg.message.length == null">
+        {{ 140 - msgCtrl.msg.message.length }} characters left.
+    </div>
+    
     <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
 
         <small class="error" ng-show="msgForm.message.$error.maxlength">
