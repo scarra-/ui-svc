@@ -9,7 +9,7 @@ require('ng-infinite-scroll');
 require('pusher-angular');
 require('angular-local-storage');
 require('ng-file-upload/dist/angular-file-upload');
-
+require('bootstrap');
 require('./partials');
 require('./controllers/LoginController');
 require('./controllers/RegisterController');
