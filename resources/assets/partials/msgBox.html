@@ -18,6 +18,12 @@
     <button id="sendMsg"
             class="btn btn-sm btn-primary btn-block message-btn-margin"
             type="submit"
-            ng-disabled="msgForm.$invalid">Send msg
+            ng-disabled="msgForm.$invalid || msgCtrl.disabled"
+            >{{ msgCtrl.buttonText }}
     </button>
+    <!-- <label  ng-show="msgCtrl.internalError"
+            name="internalError"
+            class="formError">
+            500 Internal Server Error
+    </label> -->
 </form>
