@@ -62,6 +62,8 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                     }
 
                     angular.forEach(success.data, function(message) {
+                        var ext = message.image_id.split('.');
+                        message.ext = ext[ext.length - 1];
                         self.addContentMessage(message);
                     });
                     messagesLoading = false;
