@@ -4,6 +4,11 @@ angular.module('messageApp.RequestResetController', ['AppConfig' ])
 
         self.buttonText = 'Request Password Reset';
         self.disabled = false;
+        self.redirectButton = false;
+        //
+        // self.getButton = function() {
+        //     return self.redirectButton;
+        // }
 
         self.requestReset = function() {
 

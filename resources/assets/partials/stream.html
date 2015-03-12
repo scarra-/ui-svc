@@ -32,6 +32,7 @@
                                 <a ng-href="#/{{ message.owner }}">{{ message.owner }}</a>
                             </span>
                             <div class="text">{{ message.message }}</div>
+                            <img ng-if="message.image_id !== ''" ng-src="http://s.acn-bootcamp.com/{{ message.image_id }}/image400.{{ message.ext }}">
                             <div class="activity-row"><span class="time">{{ message.created_at }}</span></div>
                         </div>
                     </div>
