@@ -4,20 +4,32 @@
       novalidate>
 
     <textarea name="message"
-    		      ng-model="msgCtrl.msg.message"
+    		  ng-model="msgCtrl.msg.message"
               class="form-control custom-control"
               rows="3"
               required >
     </textarea>
 
-    <div class="btn btn-sm btn-primary"
-         ng-file-select ng-model="msgCtrl.img.image">Add image</div>
-
-    <div>{{ msgCtrl.image }}</div>
+    <div class="out form-control custom-control">
+        <div class="input"
+                ng-file-select
+                ng-model="msgCtrl.img.image"
+                value= {{ msgCtrl.img.image[0].name }} >
+                Drag and Drop or Click to add picture
+                <div>{{ msgCtrl.img.image[0].name }}</div>
+        </div>
+    </div>
+    <!-- <div>{{ msgCtrl.img.image[0].name }}</div> -->
 
     <button id="sendMsg"
             class="btn btn-sm btn-primary btn-block message-btn-margin"
             type="submit"
-            ng-disabled="msgForm.$invalid">Send msg
+            ng-disabled="msgForm.$invalid || msgCtrl.disabled"
+            >{{ msgCtrl.buttonText }}
     </button>
+    <!-- <label  ng-show="msgCtrl.internalError"
+            name="internalError"
+            class="formError">
+            500 Internal Server Error
+    </label> -->
 </form>

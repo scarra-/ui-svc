@@ -18,11 +18,12 @@ angular.module('messageApp.UserModalController', [])
             self.followButtonText = 'Follow';
             self.isFollowing = false;
 
-            profile = localStorage.get('profile');
+            loggedInUser = localStorage.get('profile');
 
-            if (profile) {
-                $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/' + profile.login)
+            if (loggedInUser) {
+                $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/' + loggedInUser.login)
                     .then(function(success) {
+
                         if (success.data.following.indexOf($routeParams.username) !== -1) {
                             self.followButtonText = 'Unfollow';
                             self.isFollowing = true;
@@ -43,33 +44,37 @@ angular.module('messageApp.UserModalController', [])
             var authHeader = { 'Authorization': 'Bearer ' + localStorage.get('token') };
 
             self.followUser = function () {
-                console.log('follow user: ' + self.user.login);
-                if (self.isFollowing === false) {
-                    $http.post(
-                        AppConfig.subscriptionServiceUrl + '/subscribe',
-                        {"username" : $routeParams.username},
-                        {headers : authHeader}
-                    )
-                    .then(function(success) {
-                        console.log(success.data);
-                        self.isFollowing = true;
-                        self.followButtonText = 'Unfollow';
-                    }, function(failure) {
-                        console.log(failure.data);
-                    });
-                } else {
-                    $http.post(
-                        AppConfig.subscriptionServiceUrl + '/unsubscribe',
-                        {"username" : $routeParams.username},
-                        {headers : authHeader}
-                    )
-                    .then(function(success) {
-                        console.log(success.data);
-                        self.isFollowing = false;
-                        self.followButtonText = 'Follow';
-                    }, function(failure) {
-                        console.log(failure.data);
-                    });
+                console.log('follow user: ' + self.user.login );
+
+                if (self.user.login !== loggedInUser.login) {
+                    if (self.isFollowing === false) {
+                        $http.post(
+                            AppConfig.subscriptionServiceUrl + '/subscribe',
+                            {"username" : $routeParams.username},
+                            {headers : authHeader}
+                        )
+                        .then(function(success) {
+                            console.log(success.data);
+                            self.isFollowing = true;
+                            self.followButtonText = 'Unfollow';
+                        }, function(failure) {
+                            console.log(failure.data);
+                        });
+                    } else {
+                        $http.post(
+                            AppConfig.subscriptionServiceUrl + '/unsubscribe',
+                            {"username" : $routeParams.username},
+                            {headers : authHeader}
+                        )
+                        .then(function(success) {
+                            console.log(success.data);
+                            self.isFollowing = false;
+                            self.followButtonText = 'Follow';
+                        }, function(failure) {
+                            console.log(failure.data);
+                        });
+                    }
                 }
+
             };
     }]);

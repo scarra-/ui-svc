@@ -4,22 +4,23 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
         var pusherMessages = [];
         var contentMessages = [];
-
-        var client        = new Pusher(AppConfig.pusherAppKey);
-        var pusher        = $pusher(client);
         var currentChannel = "";
-
+        var client = new Pusher(AppConfig.pusherAppKey);
+        var pusher = $pusher(client);
 
         self.switchChannel = function(channelName) {
 
             if (currentChannel !== channelName) {
+
+                if (channelName !== 'public_channel') {
+                    channelName = 'private-' + channelName;
+                }
 
                 self.clearPusherMessages();
                 pusher.unsubscribe(currentChannel);
 
                 my_channel = pusher.subscribe(channelName);
                 currentChannel = channelName;
-
                 my_channel.bind('message', function (data) {
                     self.addPusherMessage(data);
                 });
@@ -38,14 +39,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
 
         self.myPagingFunction = function() {
-            console.log("called paging function");
-            console.log(contentPage);
-            console.log(messagesLoading);
             if (contentPage !== false && messagesLoading === false) {
-                console.log("inside if");
-                console.log(contentPage);
-                console.log(messagesLoading);
-
                 messagesLoading = true;
                 $http.get(contentPage, config).then(function(success) {
                     var pagination = parse(success.headers('link'));
@@ -60,7 +54,6 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                     } else {
                         contentPage = false;
                     }
-
                     angular.forEach(success.data, function(message) {
                         var ext = message.image_id.split('.');
                         message.ext = ext[ext.length - 1];
