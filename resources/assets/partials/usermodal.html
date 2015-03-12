@@ -15,7 +15,7 @@
                 <button type="button"
                         ng-show="modalCtrl.auth()"
                         class="btn btn-primary btn-lg"
-
+                        ng-disabled="modalCtrl.followButtonDisabled"
                         ng-click="modalCtrl.followUser()"
                         >{{ modalCtrl.followButtonText }}</button>
 

@@ -5,7 +5,14 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         var pusherMessages = [];
         var contentMessages = [];
         var currentChannel = "";
-        var client = new Pusher(AppConfig.pusherAppKey);
+        var client = new Pusher(AppConfig.pusherAppKey, {
+            auth: {
+                headers: {
+                    'Authorization': 'Bearer '+ localStorage.get('token')
+                }
+            },
+            authEndpoint: AppConfig.userServiceUrl + '/authenticate/pusher'
+        });
         var pusher = $pusher(client);
 
         self.switchChannel = function(channelName) {
@@ -22,6 +29,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                 my_channel = pusher.subscribe(channelName);
                 currentChannel = channelName;
                 my_channel.bind('message', function (data) {
+                    console.log(data);
                     self.addPusherMessage(data);
                 });
             }
@@ -72,6 +80,8 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         };
 
         self.addPusherMessage = function(message) {
+            var ext = message.image_id.split('.');
+            message.ext = ext[ext.length - 1];
             pusherMessages.unshift(message);
         };
 
