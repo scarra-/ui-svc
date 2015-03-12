@@ -45,6 +45,8 @@ angular.module('messageApp.MsgController', ['AppConfig'])
                 self.buttonText = 'Send message';
                 self.disabled   = false;
             }
+            self.buttonText = 'Send message';
+            self.disabled   = false;
         };
 
         self.sendMessage = function() {
