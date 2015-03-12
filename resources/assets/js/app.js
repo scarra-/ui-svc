@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var $ = require('jquery');
+=======
+$ = require('jquery');
+>>>>>>> b1e3a4c55e99630f321d45c1efbbee48926d4db3
 window.jQuery = $;
 window.$ = $;
 
@@ -10,7 +14,7 @@ require('pusher-angular');
 require('bootstrap');
 require('angular-local-storage');
 require('ng-file-upload/dist/angular-file-upload');
-
+require('bootstrap');
 require('./partials');
 require('./controllers/LoginController');
 require('./controllers/RegisterController');

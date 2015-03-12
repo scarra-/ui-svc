@@ -3,42 +3,64 @@
       ng-submit="msgCtrl.submit();"
       novalidate>
 
-    <textarea name="message"
-    		  ng-model="msgCtrl.msg.message"
-              class="form-control custom-control"
-              rows="3"
-              ng-maxlength=140
-              required >
-    </textarea>
+    <div>
+        <textarea name="message"
+        		  ng-model="msgCtrl.msg.message"
+                  class="form-control custom-control"
+                  rows="3"
+                  ng-maxlength=140
+                  required >
+        </textarea>
 
-    <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
+        <div id="inputLength" ng-hide="msgCtrl.msg.message.length == null">
+            {{ 140 - msgCtrl.msg.message.length }} characters left.
+        </div>
 
-        <small class="error" ng-show="msgForm.message.$error.maxlength">
-                Your message cannot be longer than 140 characters<br/>
-        </small>
+        <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
 
-    </div>
+            <div id="inputLength" ng-hide="msgCtrl.msg.message.length == null">
+                {{ 140 - msgCtrl.msg.message.length }} characters left.
+            </div>
 
-    <div    ng-file-select
-            ng-file-drop
-            ng-model="msgCtrl.img.image">
-        <div class="out form-control custom-control">
-            <div class="input"
-                >Drag and Drop or Click to add picture
-                <div>{{ msgCtrl.img.image[0].name }}</div>
+            <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
+                <small class="error" ng-show="msgForm.message.$error.maxlength">
+                    Your message cannot be longer than 140 characters<br/>
+                </small>
             </div>
         </div>
-    </div>
 
-    <button id="sendMsg"
-            class="btn btn-sm btn-primary btn-block message-btn-margin"
-            type="submit"
-            ng-disabled="msgForm.$invalid || msgCtrl.disabled"
-            >{{ msgCtrl.buttonText }}
-    </button>
-    <!-- <label  ng-show="msgCtrl.internalError"
-            name="internalError"
-            class="formError">
-            500 Internal Server Error
-    </label> -->
+        <button type="button"
+                class="btn btn-sm btn-primary"
+                ng-model="msgCtrl.img.image"
+                ng-file-change="msgCtrl.fileDropped($files)"
+                ng-file-select>Add image</button>
+
+        <div ng-file-drop
+             ng-model="msgCtrl.img.image"
+             drag-over-class="dragover"
+             ng-multiple="false"
+             allow-dir="false"
+             accept=".jpg,.png,.jpeg"
+             class="filedroparea"
+             ng-file-change="msgCtrl.fileDropped($files)">
+             <h1>Drop your files here...</h1>
+        </div>
+
+        <div ng-hide="msgCtrl.hideImageName">
+            <img class="image-preview" />
+            <div class="progress" ng-hide="msgCtrl.hideinput">
+               <div class="progress-bar" role="progressbar"
+                  aria-valuemin="0" aria-valuemax="100" style="width: {{msgCtrl.showProgress()}}%;">
+                  <span class="sr-only">40% Complete</span>
+               </div>
+            </div>
+        </div>
+
+        <button id="sendMsg"
+                class="btn btn-sm btn-primary btn-block message-btn-margin"
+                type="submit"
+                ng-disabled="msgForm.$invalid || msgCtrl.disabled"
+                >{{ msgCtrl.buttonText }}
+        </button>
+    </div>
 </form>

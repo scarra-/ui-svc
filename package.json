@@ -17,6 +17,8 @@
     "ng-file-upload": "~3.1.2",
     "ng-infinite-scroll": "~1.2.0",
     "parse-link-header": "^0.2.0",
-    "pusher-angular": "^0.1.4"
+    "pusher-angular": "^0.1.4",
+    "ng-file-upload": "~3.1.2",
+    "jquery": "~2.1.3"
   }
 }
