@@ -27,21 +27,19 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         }
 
         var lastMessageId = false;
-
-        self.messagesLoading = false;
+        var messagesLoading = false;
         var contentPage = AppConfig.contentServiceUrl + '/messages';
         var parse = require('parse-link-header');
-
-
         var config = {
             headers: {'Authorization': 'Bearer '+ localStorage.get('token')},
             // params: {}
             // // params: {"id" : "<=" + lastMessageId }
         };
 
+
         self.myPagingFunction = function() {
-            if (contentPage !== false && self.messagesLoading === false) {
-                self.messagesLoading = true;
+            if (contentPage !== false && messagesLoading === false) {
+                messagesLoading = true;
                 $http.get(contentPage, config).then(function(success) {
                     var pagination = parse(success.headers('link'));
 
@@ -55,13 +53,14 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                     } else {
                         contentPage = false;
                     }
-
                     angular.forEach(success.data, function(message) {
+                        var ext = message.image_id.split('.');
+                        message.ext = ext[ext.length - 1];
                         self.addContentMessage(message);
                     });
-                    self.messagesLoading = false;
+                    messagesLoading = false;
                 }, function (failure) {
-                    self.messagesLoading = false;
+                    messagesLoading = false;
                 });
             }
         };
@@ -90,6 +89,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
         self.clearContentMessages = function() {
             contentMessages = [];
+            contentPage = AppConfig.contentServiceUrl + '/messages';
         };
 
     }]);
