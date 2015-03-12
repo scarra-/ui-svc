@@ -27,21 +27,26 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         }
 
         var lastMessageId = false;
-
-        self.messagesLoading = false;
+        var messagesLoading = false;
         var contentPage = AppConfig.contentServiceUrl + '/messages';
         var parse = require('parse-link-header');
-
-
         var config = {
             headers: {'Authorization': 'Bearer '+ localStorage.get('token')},
             // params: {}
             // // params: {"id" : "<=" + lastMessageId }
         };
 
+
         self.myPagingFunction = function() {
-            if (contentPage !== false && self.messagesLoading === false) {
-                self.messagesLoading = true;
+            console.log("called paging function");
+            console.log(contentPage);
+            console.log(messagesLoading);
+            if (contentPage !== false && messagesLoading === false) {
+                console.log("inside if");
+                console.log(contentPage);
+                console.log(messagesLoading);
+
+                messagesLoading = true;
                 $http.get(contentPage, config).then(function(success) {
                     var pagination = parse(success.headers('link'));
 
@@ -59,9 +64,9 @@ angular.module('messageApp.StreamService', ['AppConfig'])
                     angular.forEach(success.data, function(message) {
                         self.addContentMessage(message);
                     });
-                    self.messagesLoading = false;
+                    messagesLoading = false;
                 }, function (failure) {
-                    self.messagesLoading = false;
+                    messagesLoading = false;
                 });
             }
         };
@@ -90,6 +95,7 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
         self.clearContentMessages = function() {
             contentMessages = [];
+            contentPage = AppConfig.contentServiceUrl + '/messages';
         };
 
     }]);
