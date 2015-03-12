@@ -5,25 +5,34 @@ angular.module('messageApp.StreamService', ['AppConfig'])
         var pusherMessages = [];
         var contentMessages = [];
         var currentChannel = "";
-        var client = new Pusher(AppConfig.pusherAppKey, {
-            auth: {
-                headers: {
-                    'Authorization': 'Bearer '+ localStorage.get('token')
-                }
-            },
-            authEndpoint: AppConfig.userServiceUrl + '/authenticate/pusher'
-        });
-        var pusher = $pusher(client);
+        var client = false;
+        var pusher;
+
+        self.createPusher = function() {
+            console.log("create pusher", localStorage.get('token'));
+
+            client = new Pusher(AppConfig.pusherAppKey, {
+                auth: {
+                    headers: {
+                        'Authorization': 'Bearer '+ localStorage.get('token')
+                    }
+                },
+                authEndpoint: AppConfig.userServiceUrl + '/authenticate/pusher'
+            });
+            pusher = $pusher(client);
+        }
+
 
         self.switchChannel = function(channelName) {
-
+            console.log("swicth channel");
             if (currentChannel !== channelName) {
+                self.createPusher();
 
                 if (channelName !== 'public_channel') {
                     channelName = 'private-' + channelName;
                 }
-
                 self.clearPusherMessages();
+                // console.log("reached here");
                 pusher.unsubscribe(currentChannel);
 
                 my_channel = pusher.subscribe(channelName);
