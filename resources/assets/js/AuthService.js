@@ -59,10 +59,8 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
                     var profile = storage.get('profile');
                     self.setUser(profile);
-
                     StreamService.clearPusherMessages();
                     StreamService.switchChannel(profile.login);
-
                     isLoggedIn = true;
                 }
                 else {
@@ -77,10 +75,10 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
                 self.internalError = false;
 
                 $http.post(AppConfig.userServiceUrl+'/authenticate', userObject).then(function(response) {
+                    storage.set('token', response.data.token);
                     StreamService.switchChannel(userObject.login);
                     StreamService.clearContentMessages();
 
-                    storage.set('token', response.data.token);
                     var encodedProfile = response.data.token.split('.')[1];
 
                     storage.set('profile', JSON.parse(url_base64_decode(encodedProfile)).user);
@@ -94,7 +92,6 @@ angular.module('messageApp.AuthService', ['LocalStorageModule', 'AppConfig'] )
 
                 }, function(errorResponse) {
                     // need some action if fails
-                    console.log(errorResponse);
                     if (errorResponse.status=='0') {
                         self.buttonText = 'Login';
                         self.disabled   = false;
