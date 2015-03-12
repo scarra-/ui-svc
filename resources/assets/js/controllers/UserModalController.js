@@ -23,8 +23,7 @@ angular.module('messageApp.UserModalController', [])
             if (profile) {
                 $http.get(AppConfig.subscriptionServiceUrl + '/subscriptions/' + profile.login)
                     .then(function(success) {
-
-                        if (success.data.followers.indexOf($routeParams.username) !== -1) {
+                        if (success.data.following.indexOf($routeParams.username) !== -1) {
                             self.followButtonText = 'Unfollow';
                             self.isFollowing = true;
                         }
