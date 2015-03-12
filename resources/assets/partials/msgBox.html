@@ -7,11 +7,21 @@
     		      ng-model="msgCtrl.msg.message"
               class="form-control custom-control"
               rows="3"
+              ng-maxlength=140
               required >
     </textarea>
 
+    <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
+
+        <small class="error" ng-show="msgForm.message.$error.maxlength">
+                Your message cannot be longer than 140 characters<br/>
+        </small>
+
+    </div>
+
     <div class="btn btn-sm btn-primary"
-         ng-file-select ng-model="msgCtrl.img.image">Add image</div>
+         ng-file-select
+         ng-model="msgCtrl.img.image">Add image</div>
 
     <div>{{ msgCtrl.image }}</div>
 
