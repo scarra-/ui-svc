@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use \Dotenv\Dotenv;
+use Pusher;
+use Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Response;
 
 $dotenv = new Dotenv();
@@ -45,6 +46,19 @@ $app->get('/', function () use ($app) {
     $response->setTtl(5);
 
     return $response;
+});
+
+$app->post('/pusher/auth', function () use ($app) {
+    $pusher = new Pusher(
+        $_ENV['UI_SVC_PUSHER_APP_KEY'],
+         $_ENV['UI_SVC_PUSHER_APP_SECRET'],
+         $_ENV['UI_SVC_PUSHER_APP_ID']
+    );
+
+    return $pusher->socket_auth(
+        $_REQUEST['channel_name'],
+        $_REQUEST['socket_id']
+    );
 });
 
 $app->run();

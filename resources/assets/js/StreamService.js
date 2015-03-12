@@ -4,22 +4,23 @@ angular.module('messageApp.StreamService', ['AppConfig'])
 
         var pusherMessages = [];
         var contentMessages = [];
-
-        var client        = new Pusher(AppConfig.pusherAppKey);
-        var pusher        = $pusher(client);
         var currentChannel = "";
-
+        var client = new Pusher(AppConfig.pusherAppKey);
+        var pusher = $pusher(client);
 
         self.switchChannel = function(channelName) {
 
             if (currentChannel !== channelName) {
+
+                if (channelName !== 'public_channel') {
+                    channelName = 'private-' + channelName;
+                }
 
                 self.clearPusherMessages();
                 pusher.unsubscribe(currentChannel);
 
                 my_channel = pusher.subscribe(channelName);
                 currentChannel = channelName;
-
                 my_channel.bind('message', function (data) {
                     self.addPusherMessage(data);
                 });
