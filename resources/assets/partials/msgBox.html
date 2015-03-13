@@ -5,22 +5,14 @@
 
     <div>
         <textarea name="message"
+                  id="msg_textarea"
         		  ng-model="msgCtrl.msg.message"
                   class="form-control custom-control"
                   rows="3"
                   ng-maxlength=140
                   required >
         </textarea>
-
-        <div id="inputLength" ng-hide="msgCtrl.msg.message.length == null">
-            {{ 140 - msgCtrl.msg.message.length }} characters left.
-        </div>
-
         <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
-
-            <div id="inputLength" ng-hide="msgCtrl.msg.message.length == null">
-                {{ 140 - msgCtrl.msg.message.length }} characters left.
-            </div>
 
             <div class="error-container" ng-show="msgForm.message.$dirty && msgForm.message.$invalid">
                 <small class="error" ng-show="msgForm.message.$error.maxlength">
@@ -29,11 +21,24 @@
             </div>
         </div>
 
-        <button type="button"
-                class="btn btn-sm btn-primary"
-                ng-model="msgCtrl.img.image"
-                ng-file-change="msgCtrl.fileDropped($files)"
-                ng-file-select>Add image</button>
+          <button
+            type="button"
+            id="addImg_button"
+            class="btn btn-default"
+            ng-model="msgCtrl.img.image"
+            ng-file-change="msgCtrl.fileDropped($files)"
+            ng-file-select>Add image</button>
+        <button
+            id="sendMsg_button"
+            class="btn btn-default"
+            type="submit"
+            ng-disabled="msgForm.$invalid || msgCtrl.disabled"
+            >{{ msgCtrl.buttonText }}</button>
+        <div id="inputLength" ng-hide="msgCtrl.msg.message.length == null">
+                {{ 140 - msgCtrl.msg.message.length }} characters left.
+        </div>
+
+
 
         <div ng-file-drop
              ng-model="msgCtrl.img.image"
@@ -56,11 +61,6 @@
             </div>
         </div>
 
-        <button id="sendMsg"
-                class="btn btn-sm btn-primary btn-block message-btn-margin"
-                type="submit"
-                ng-disabled="msgForm.$invalid || msgCtrl.disabled"
-                >{{ msgCtrl.buttonText }}
-        </button>
+
     </div>
 </form>
