@@ -6,7 +6,7 @@
         </div>
         <div class='people'>
             <ul >
-                <li ng-repeat="person in peopleCtrl.people()">
+                <li ng-repeat="person in peopleCtrl.people() | filter:search">
                     <a ng-href="#/{{person.login}}">{{person.login}}</a>
                 </li>
             </ul>
